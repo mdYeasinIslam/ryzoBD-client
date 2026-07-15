@@ -80,7 +80,7 @@ export default function Component() {
 
   const totalItems = products.reduce(
     (acc, product) => acc + product.quantity,
-    0
+    0,
   );
 
   const handleSearch = (e: React.FormEvent) => {
@@ -96,7 +96,7 @@ export default function Component() {
         setSearchParams({
           searchParams: searchParams.toString(),
           params: { search: trimmedQuery },
-        })
+        }),
       );
     }
   };
@@ -113,6 +113,16 @@ export default function Component() {
         /> */}
         <div className="container mx-auto flex px-4 py-2 items-center">
           <div className="flex w-full items-center justify-between gap-4 lg:gap-6">
+            <Link href="/" className="lg:hidden block">
+              <Image
+                src={siteInfo.smLogo}
+                alt="logo"
+                objectFit="contain"
+                width={200}
+                height={50}
+                className="h-[50px] w-auto"
+              />
+            </Link>
             <Link href="/" className="hidden lg:block">
               <Image
                 src={siteInfo.logo}
@@ -120,6 +130,7 @@ export default function Component() {
                 objectFit="contain"
                 width={200}
                 height={50}
+                className="h-[50px] w-auto"
               />
             </Link>
             <form onSubmit={handleSearch} className="flex max-w-2xl flex-1">
@@ -258,7 +269,7 @@ export default function Component() {
                       />
                       <span>{category.name}</span>
                     </DropdownMenuItem>
-                  )
+                  ),
                 )}
               </DropdownMenuContent>
             </DropdownMenu>
@@ -316,7 +327,7 @@ export default function Component() {
             href="/"
             className={cn(
               "flex flex-col items-center gap-1",
-              pathname === "/" && "text-primary"
+              pathname === "/" && "text-primary",
             )}
           >
             <Home className="h-6 w-6" />
@@ -326,7 +337,7 @@ export default function Component() {
             href="/products"
             className={cn(
               "flex flex-col items-center gap-1",
-              pathname === "/products" && "text-primary"
+              pathname === "/products" && "text-primary",
             )}
           >
             <ShoppingBag className="h-6 w-6" />

@@ -39,7 +39,7 @@ export const CartProductCard = ({
 }) => {
   return (
     <div
-      key={item._id}
+      key={item?._id}
       className={cn(
         "flex items-center gap-4 py-6 border-b last:border-b-0",
         className
@@ -47,8 +47,8 @@ export const CartProductCard = ({
     >
       <div className="w-10 h-10 shrink-0 border bg-muted rounded-full overflow-hidden">
         <Image
-          src={item.featuredImage}
-          alt={item.name}
+          src={item?.featuredImage}
+          alt={item?.name}
           width={48}
           height={48}
           className="w-full h-full object-cover"
@@ -56,14 +56,14 @@ export const CartProductCard = ({
       </div>
       <div className="w-full space-y-1">
         <div className="flex-1 space-y-1">
-          <h3 className="font-medium">{item.name}</h3>
+          <h3 className="font-medium">{item?.name}</h3>
           <p className="text-sm text-muted-foreground">
-            Item Price {item.price.toFixed(2)}৳
+            Item Price {item?.price.toFixed(2)}৳
           </p>
         </div>
         <div className="flex items-center gap-2 justify-between">
           <span className="font-medium [word-spacing:-0.25rem]">
-            {(item.price * item.quantity).toFixed(2)} ৳
+            {(item?.price * item?.quantity).toFixed(2)} ৳
           </span>
           <div className="flex items-center gap-2">
             <Button
@@ -71,17 +71,17 @@ export const CartProductCard = ({
               size="icon"
               className="h-8 w-8"
               type="button"
-              onClick={() => updateQuantity(item._id, -1)}
+              onClick={() => updateQuantity(item?._id, -1)}
             >
               <Minus className="h-3 w-3" />
             </Button>
-            <span className="w-8 text-center">{item.quantity}</span>
+            <span className="w-8 text-center">{item?.quantity}</span>
             <Button
               variant="outline"
               size="icon"
               className="h-8 w-8"
               type="button"
-              onClick={() => updateQuantity(item._id, 1)}
+              onClick={() => updateQuantity(item?._id, 1)}
             >
               <Plus className="h-3 w-3" />
             </Button>
@@ -92,7 +92,7 @@ export const CartProductCard = ({
               size="icon"
               className="h-8 w-8 text-destructive"
               type="button"
-              onClick={() => removeItem(item._id)}
+              onClick={() => removeItem(item?._id)}
             >
               <Trash2 className="h-4 w-4" />
             </Button>
@@ -120,7 +120,7 @@ export default function CartSheet(props: {
   };
 
   const total = products.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + item?.price * item?.quantity,
     0
   );
 
@@ -146,7 +146,7 @@ export default function CartSheet(props: {
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {products.map((item) => (
             <CartProductCard
-              key={item._id}
+              key={item?._id}
               item={item}
               updateQuantity={updateQuantity}
               removeItem={removeItem}
