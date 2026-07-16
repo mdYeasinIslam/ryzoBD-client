@@ -3,7 +3,7 @@ export const siteInfo = {
   copyrightOwnerName: "Frescohat",
   // logo: "/frescohat.svg",
   smLogo:'/sm-logo.png',
-  logo: "/logo3.png",
+  logo: "/logo.png",
   defaultUserAvatar: "/images/default-avatar.png",
   description:
     "Frescohat is a food delivery service that connects people with the best in their cities.",
