@@ -34,7 +34,7 @@ body {
     /* --primary: 38 100% 51%; #FFA103 - frescobite -> orange */
     /* --primary: 142 38% 51%; #53B175 - grocery store -> greenish */
       /*--primary: 26.8 100% 49.61%;#FD7100 - grocery store -> greenish */
-      --primary:20 25% 18%;/*    #FD7100 25 32% 24%- grocery store -> greenish */
+      --primary:20 25% 18%;    /*#FD7100 25 32% 24%- grocery store -> greenish */
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
