@@ -58,7 +58,7 @@ export const CartProductCard = ({
         <div className="flex-1 space-y-1">
           <h3 className="font-medium">{item?.name}</h3>
           <p className="text-sm text-muted-foreground">
-            Item Price {item?.price.toFixed(2)}৳
+            Item Price {item?.price?.toFixed(2)}৳
           </p>
         </div>
         <div className="flex items-center gap-2 justify-between">

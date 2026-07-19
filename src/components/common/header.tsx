@@ -258,7 +258,7 @@ export default function Component() {
                   (category: { _id: string; image: string; name: string }) => (
                     <DropdownMenuItem
                       key={category._id}
-                      className="flex items-center hover:text-primary focus:text-primary focus:bg-transparent gap-2 py-2"
+                      className="flex items-center hover:text-primary focus:text-primary focus:bg-transparent gap-2 py-2 cursor-pointer"
                     >
                       <Image
                         src={category.image}

@@ -9,8 +9,8 @@ export const siteInfo = {
     "Frescohat is a food delivery service that connects people with the best in their cities.",
   keywords: "food delivery, delivery service, food, delivery, Frescohat",
   location: "Dhaka, Mirpur-13",
-  supportEmail: "support@frescohat.com",
-  supportPhone: "+880 123 456 7890",
+  supportEmail: "support@rayzoshop.com",
+  supportPhone: "+880 1764078605",
   socialLinks: {
     facebook: "https://www.facebook.com",
     instagram: "https://www.instagram.com",
