@@ -258,7 +258,7 @@ export default function Component() {
                   (category: { _id: string; image: string; name: string }) => (
                     <DropdownMenuItem
                       key={category._id}
-                      className="flex items-center hover:text-primary focus:text-primary focus:bg-transparent gap-2 py-2 cursor-pointer"
+                      className="flex items-center hover:text-primary focus:text-white focus:bg-primary hover:bg-primary gap-2 py-2 cursor-pointer"
                     >
                       <Image
                         src={category.image}
@@ -267,7 +267,7 @@ export default function Component() {
                         height={20}
                         className="rounded-md"
                       />
-                      <span>{category.name}</span>
+                      <span className="text-lg font-bold">{category.name}</span>
                     </DropdownMenuItem>
                   ),
                 )}
@@ -275,14 +275,14 @@ export default function Component() {
             </DropdownMenu>
             <div className="flex items-center gap-4">
               <Link
-                className="flex items-center gap-2 text-sm font-medium hover:underline"
+                className="flex items-center gap-2 text-base font-semibold hover:underline cursor-pointer"
                 href="/"
               >
                 <Home className="h-4 w-4" />
                 Home
               </Link>
               <Link
-                className="flex items-center gap-2 text-sm font-medium hover:underline"
+                className="flex items-center gap-2 text-base font-semibold hover:underline cursor-pointer"
                 href="/products"
               >
                 <ShoppingBag className="h-4 w-4" />
