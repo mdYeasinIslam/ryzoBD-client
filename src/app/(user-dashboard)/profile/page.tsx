@@ -142,7 +142,7 @@ export default function ProfilePage() {
                     </div>
                   )}
                   <div className="absolute bottom-1 right-[0px] h-[32px] w-[32px] cursor-pointer">
-                    <button className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-primary text-white">
+                    <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-primary text-white">
                       <Camera className="p-1 cursor-pointer" />
                       <input
                         className="absolute left-0 top-0 scale-150 cursor-pointer opacity-0"
@@ -154,7 +154,7 @@ export default function ProfilePage() {
                           updateProfileState.isLoading
                         }
                       />
-                    </button>
+                    </div>
                   </div>
                 </div>
 
