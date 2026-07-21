@@ -2,7 +2,7 @@ export const siteInfo = {
   name: "Frescohat",
   copyrightOwnerName: "Frescohat",
   // logo: "/frescohat.svg",
-  smLogo:'/sm-logo.png',
+  smLogo: "/sm-logo.png",
   logo: "/logo.png",
   defaultUserAvatar: "/images/default-avatar.png",
   description:
@@ -12,7 +12,7 @@ export const siteInfo = {
   supportEmail: "support@rayzoshop.com",
   supportPhone: "+880 1764078605",
   socialLinks: {
-    facebook: "https://www.facebook.com",
+    facebook: "https://www.facebook.com/profile.php?id=61592266463204",
     instagram: "https://www.instagram.com",
     youtube: "https://www.youtube.com",
   },
