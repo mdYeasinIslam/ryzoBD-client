@@ -143,7 +143,7 @@ const ProductDetails = (props: Props) => {
               variant="ghost"
               size="icon"
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
-              className="h-9 w-9"
+              className="h-9 w-9 hover:bg-primary/40 border-2"
             >
               <Minus className="h-4 w-4" />
             </Button>
@@ -152,12 +152,12 @@ const ProductDetails = (props: Props) => {
               variant="ghost"
               size="icon"
               onClick={() => setQuantity(quantity + 1)}
-              className="h-9 w-9"
+              className="h-9 w-9 hover:bg-primary/40 border-2"
             >
               <Plus className="h-4 w-4" />
             </Button>
           </div>
-          <Button onClick={handleAddToCart} className="flex-1 h-11 text-base">
+          <Button onClick={handleAddToCart} className="flex-1 h-11 text-base font-semibold">
             Add To Cart
           </Button>
           {/* <Button variant="outline" size="icon" className="h-11 w-11">

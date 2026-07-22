@@ -201,7 +201,7 @@ export default function Component() {
                     <DropdownMenuSeparator className="bg-muted dark:bg-muted-foreground" />
                     <DropdownMenuItem
                       asChild
-                      className="px-2 ps-4 py-3 cursor-pointer gap-2 hover:text-primary focus:text-primary focus:bg-transparent rounded-md transition-colors"
+                      className="px-2 ps-4 py-3 cursor-pointer gap-2 hover:text-primary focus:text-primary focus:bg-secondary rounded-md transition-colors font-semibold"
                     >
                       <Link href="/profile">
                         <User className="h-5 w-5" /> Profile
@@ -209,7 +209,7 @@ export default function Component() {
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       asChild
-                      className="px-2 ps-4 py-3 cursor-pointer gap-2 hover:text-primary focus:text-primary focus:bg-transparent rounded-md transition-colors"
+                      className="px-2 ps-4 py-3 cursor-pointer gap-2 hover:text-primary focus:text-primary focus:bg-secondary rounded-md transition-colors font-semibold"
                     >
                       <Link href="/orders">
                         <ShoppingBag className="h-5 w-5" /> Orders
@@ -220,7 +220,7 @@ export default function Component() {
                       onClick={() =>
                         signOut({ redirect: true, callbackUrl: "/" })
                       }
-                      className="px-2 ps-4 py-3 cursor-pointer gap-2 hover:text-primary focus:text-primary focus:bg-transparent rounded-md transition-colors"
+                      className="px-2 ps-4 py-3 cursor-pointer gap-2 hover:text-primary focus:text-primary focus:bg-secondary rounded-md transition-colors font-semibold"
                     >
                       <LogOut className="h-5 w-5" />
                       Log out
