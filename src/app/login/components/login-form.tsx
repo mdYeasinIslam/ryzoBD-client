@@ -132,13 +132,13 @@ export default function LoginForm({
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <TextInput
-                control={form.control}
+                control={form.control as any}
                 name="email"
                 label="Email Address"
                 placeholder="Enter your email"
               />
               <TextInput
-                control={form.control}
+                control={form.control as any}
                 name="password"
                 type="password"
                 label="Password"
