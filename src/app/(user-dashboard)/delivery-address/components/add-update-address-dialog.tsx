@@ -125,21 +125,21 @@ const AddAddressForm = ({ isOpen, setIsOpen, editingAddress }: Props) => {
               <TextInput
                 label="Full Name"
                 placeholder="Enter full name"
-                control={form.control}
+                control={form.control as any}
                 name="name"
               />
 
               <TextInput
                 label="Contact Number"
                 placeholder="Enter contact number"
-                control={form.control}
+                control={form.control as any}
                 name="contactNumber"
               />
 
               <TextInput
                 label="Address"
                 placeholder="Enter your address"
-                control={form.control}
+                control={form.control as any}
                 name="address"
               />
               {/* <TextInput

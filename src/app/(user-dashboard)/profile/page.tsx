@@ -179,14 +179,14 @@ export default function ProfilePage() {
                     name="name"
                     label="Full Name"
                     placeholder="Justin J. Ruiz"
-                    control={form.control}
+                    control={form.control as any}
                   />
 
                   <TextInput
                     name="email"
                     label="Email Address"
                     placeholder="justin@gmail.com"
-                    control={form.control}
+                    control={form.control as any}
                     readOnly
                     disabled
                   />
@@ -195,7 +195,7 @@ export default function ProfilePage() {
                     name="contactNumber"
                     label="Phone/Mobile"
                     placeholder="212-512-2888"
-                    control={form.control}
+                    control={form.control as any}
                   />
                 </div>
 

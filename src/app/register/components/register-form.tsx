@@ -116,28 +116,28 @@ export default function RegisterForm({
                 type="text"
                 label="Name"
                 placeholder="Enter your name"
-                control={form.control}
+                control={form.control as any}
               />
               <TextInput
                 name="email"
                 type="email"
                 label="Email Address"
                 placeholder="Enter your email"
-                control={form.control}
+                control={form.control as any}
               />
               <TextInput
                 name="password"
                 type="password"
                 label="Password"
                 placeholder="Enter your password"
-                control={form.control}
+                control={form.control as any}
               />
               <TextInput
                 name="confirmPassword"
                 type="password"
                 label="Confirm Password"
                 placeholder="Confirm your password"
-                control={form.control}
+                control={form.control as any}
               />
               <FormField
                 control={form.control}

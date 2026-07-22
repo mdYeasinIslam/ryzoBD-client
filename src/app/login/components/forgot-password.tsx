@@ -163,7 +163,7 @@ const ForgotPassword = ({
                 className="space-y-6"
               >
                 <TextInput
-                  control={form.control}
+                  control={form.control as any}
                   name="email"
                   label="Email"
                   placeholder="Enter your email"

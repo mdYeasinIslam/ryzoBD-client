@@ -88,14 +88,14 @@ export default function ResetPassword({
                 type="password"
                 label="New Password"
                 placeholder="Enter new password"
-                control={form.control}
+                control={form.control as any}
                 name="newPassword"
               />
               <TextInput
                 type="password"
                 label="Confirm New Password"
                 placeholder="Enter new password again"
-                control={form.control}
+                control={form.control as any}
                 name="confirmNewPassword"
               />
               <Button
