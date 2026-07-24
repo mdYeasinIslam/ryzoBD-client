@@ -1,18 +1,19 @@
 export const siteInfo = {
-  name: "Frescohat",
-  copyrightOwnerName: "Frescohat",
+  name: "RyzoBD",
+  copyrightOwnerName: "RyzoBD",
   // logo: "/frescohat.svg",
   smLogo: "/sm-logo.png",
   logo: "/logo.png",
   defaultUserAvatar: "/images/default-avatar.png",
   description:
-    "Frescohat is a food delivery service that connects people with the best in their cities.",
-  keywords: "food delivery, delivery service, food, delivery, Frescohat",
+    "RyzoBD is a gift shop that connects people with the best in their cities.",
+  keywords:
+    "islamic shop, Sunnah shop, sunnah item,gift box,islamic gift box, ator, Electronics products, Home Decor, Indoor lights, delivery service, food, delivery, RyzoBD",
   location: "Dhaka, Mirpur-13",
-  supportEmail: "support@rayzoshop.com",
-  supportPhone: "+880 1764078605",
+  supportEmail: "support@rayzobd.com",
+  supportPhone: "+880 01872686356",
   socialLinks: {
-    facebook: "https://www.facebook.com/profile.php?id=61592266463204",
+    facebook: "https://www.facebook.com/RyzoBD",
     instagram: "https://www.instagram.com",
     youtube: "https://www.youtube.com",
   },
