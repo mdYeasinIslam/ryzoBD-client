@@ -119,7 +119,7 @@ export default function Component() {
                 alt="logo"
                 objectFit="contain"
                 width={200}
-                height={50}
+                height={200}
                 className="h-[50px] w-auto"
               />
             </Link>
@@ -130,7 +130,7 @@ export default function Component() {
                 objectFit="contain"
                 width={200}
                 height={50}
-                className="h-[50px] w-auto"
+                className=""
               />
             </Link>
             <form onSubmit={handleSearch} className="flex max-w-2xl flex-1">
