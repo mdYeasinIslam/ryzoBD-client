@@ -6,8 +6,8 @@ import Link from "next/link";
 export default function OfferCardSection() {
   return (
     <section className="w-full py-6">
-      <div className="mx-auto container px-4 grid gap-6 md:grid-cols-2">
-        <div className="group flex flex-col justify-end relative min-h-[300px] rounded-lg bg-primary/20 p-8 overflow-hidden">
+      <div className="mx-auto container px-4 grid gap-6 lg:grid-cols-2">
+        <div className="group flex flex-col justify-center relative md:min-h-[300px] rounded-lg bg-primary/10  overflow-hidden">
           <div className="absolute inset-0 bg-[url('/images/card-bg.png')] opacity-10" />
           <div
             className="absolute inset-0 z-[5] rounded-lg"
@@ -20,69 +20,71 @@ export default function OfferCardSection() {
               padding: "1px",
             }}
           />
-          <div className="absolute -top-8 -right-12 w-48 md:w-64">
+          <div className="absolute top-0 bottom-0 w-full">
             <Image
-              src="/images/offer1.png"
-              alt="Fresh organic vegetables"
-              width={256}
-              height={256}
-              className="h-full w-full object-contain"
-            />
-          </div>
-          <div className="relative z-[5]">
-            <p className="mb-2 text-lg font-semibold text-primary">
-              Farm Fresh
-            </p>
-            <h3 className="mb-2 text-3xl font-bold tracking-tight">
-              Local Farm Vegetables
-            </h3>
-            <p className="mb-4 text-muted-foreground">
-              Get fresh vegetables directly from local farmers with convenient
-              delivery options
-            </p>
-            <Link href="/products">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                Shop Now
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-        <div className="group flex flex-col justify-end relative min-h-[300px] rounded-lg bg-primary/20 p-8 overflow-hidden">
-          <div className="absolute inset-0 bg-[url('/images/card-bg.png')] opacity-10" />
-          <div
-            className="absolute inset-0 z-[5] rounded-lg"
-            style={{
-              background:
-                "linear-gradient(90deg, #53B175 50%, transparent 50%), linear-gradient(90deg, #53B175 50%, transparent 50%), linear-gradient(0deg, #53B175 50%, transparent 50%), linear-gradient(0deg, #53B175 50%, transparent 50%)",
-              backgroundRepeat: "repeat-x, repeat-x, repeat-y, repeat-y",
-              backgroundSize: "15px 2px, 15px 2px, 2px 15px, 2px 15px",
-              backgroundPosition: "0px 0px, 200% 100%, 0px 200%, 100% 0px",
-              padding: "1px",
-            }}
-          />
-          <div className="absolute -top-8 -right-12 w-48 md:w-64">
-            <Image
-              src="/images/offer1.png"
+              src="/images/offer5.png"
+              // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvFmM9vYtlROnMJCt2AAr_G9AiNk1JUxQ4rYK3r9CWEeDGfkHZnloqqMvf&s=10"
               alt="Organic honey products"
-              width={256}
-              height={256}
-              className="h-full w-full object-contain"
+              width={500}
+              height={500}
+              className="h-full w-full object-cover"
             />
           </div>
-          <div className="relative z-[5]">
+          <div className="relative z-[5] p-4 md:p-8">
             <p className="mb-2 text-lg font-semibold text-primary">
               Organic Food
             </p>
             <h3 className="mb-2 text-3xl font-bold tracking-tight">
               Organic Food Bundle
             </h3>
-            <p className="mb-4 text-muted-foreground">
-              Enjoy a variety of organic fruits, vegetables, and honey sourced
+            <p className=" mb-2 md:mb-4 text-muted-foreground ">
+              Enjoy a variety of organic fruits, vegetables,
+              <br /> and honey sourced from local farms
+            </p>
+            <Link href="/products">
+              <Button className="bg-primary hover:bg-primary/90 font-semibold text-primary-foreground">
+                Order Now
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+        <div className="group flex flex-col justify-center relative md:min-h-[300px] rounded-lg bg-primary/10  overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/images/card-bg.png')] opacity-10" />
+          <div
+            className="absolute inset-0 z-[5] rounded-lg"
+            style={{
+              background:
+                "linear-gradient(90deg, #53B175 50%, transparent 50%), linear-gradient(90deg, #53B175 50%, transparent 50%), linear-gradient(0deg, #53B175 50%, transparent 50%), linear-gradient(0deg, #53B175 50%, transparent 50%)",
+              backgroundRepeat: "repeat-x, repeat-x, repeat-y, repeat-y",
+              backgroundSize: "15px 2px, 15px 2px, 2px 15px, 2px 15px",
+              backgroundPosition: "0px 0px, 200% 100%, 0px 200%, 100% 0px",
+              padding: "1px",
+            }}
+          />
+          <div className="absolute top-0 bottom-0 w-full">
+            <Image
+              src="/images/offer2.png"
+              // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvFmM9vYtlROnMJCt2AAr_G9AiNk1JUxQ4rYK3r9CWEeDGfkHZnloqqMvf&s=10"
+              alt="Organic honey products"
+              width={256}
+              height={256}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="relative top-0 z-[5] p-4 md:p-8 md:left-20">
+            <p className="mb-2 text-lg font-semibold text-primary">
+              Organic Food
+            </p>
+            <h3 className="mb-2 text-3xl font-bold tracking-tight">
+              Organic Food Bundle
+            </h3>
+            <p className=" mb-2 md:mb-4 text-muted-foreground">
+              Enjoy a variety of organic fruits, vegetables,<br /> and honey sourced
               from local farms
             </p>
             <Link href="/products">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button className="bg-primary hover:bg-primary/90 font-semibold text-primary-foreground">
                 Order Now
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
