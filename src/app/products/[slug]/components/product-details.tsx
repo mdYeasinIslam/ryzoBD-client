@@ -112,7 +112,7 @@ const ProductDetails = (props: Props) => {
       </div>
 
       <div className="flex items-baseline gap-3">
-        <span className="text-4xl font-bold text-primary">${salePrice}</span>
+        <span className="text-4xl font-bold text-primary">৳ {salePrice}</span>
         {price > salePrice && (
           <span className="text-sm text-muted-foreground line-through">
             ${price}
@@ -157,7 +157,10 @@ const ProductDetails = (props: Props) => {
               <Plus className="h-4 w-4" />
             </Button>
           </div>
-          <Button onClick={handleAddToCart} className="flex-1 h-11 text-base font-semibold">
+          <Button
+            onClick={handleAddToCart}
+            className="flex-1 h-11 text-base font-semibold"
+          >
             Add To Cart
           </Button>
           {/* <Button variant="outline" size="icon" className="h-11 w-11">
