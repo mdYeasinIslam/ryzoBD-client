@@ -55,7 +55,7 @@ const ProductCard = ({ product }: { product: Product }) => {
               alt={name}
               width={200}
               height={200}
-              className="w-44 h-auto object-contain transition-transform duration-300 group-hover:scale-110 mx-auto"
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 mx-auto"
             />
           </Link>
         </div>

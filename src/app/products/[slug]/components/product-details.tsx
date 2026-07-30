@@ -75,7 +75,7 @@ const ProductDetails = (props: Props) => {
     <div className="flex flex-col gap-6">
       <div className="space-y-3">
         {percentage && percentage > 0 ? (
-          <Badge className="bg-yellow-400/20 text-yellow-700 text-sm px-3 py-1 rounded-full">
+          <Badge className="bg-yellow-400/20 text-yellow-700 text-sm px-3 py-1 rounded-full  hover:text-white">
             {percentage}% OFF
           </Badge>
         ) : null}
