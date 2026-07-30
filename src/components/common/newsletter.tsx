@@ -81,8 +81,8 @@ export default function NewsletterSubscription() {
             <div className="relative hidden  md:block w-full h-full max-lg:min-h-[auto]">
               <div className=" h-full">
                 <Image
-                  src="https://storage.googleapis.com/giftlist-31067.appspot.com/blog/assets/heroes/eid-gift-etiquette-for-non-muslims.webp?v=r2"
-                  // src="/images/newsletter.png"
+                  // src="https://storage.googleapis.com/giftlist-31067.appspot.com/blog/assets/heroes/eid-gift-etiquette-for-non-muslims.webp?v=r2"
+                  src="/images/newsletter.jpg"
                   alt="RyzoBD Newsletter"
                   fill
                   className="w-full h-full  rounded-lg object-cover "
