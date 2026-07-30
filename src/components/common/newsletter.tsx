@@ -19,7 +19,7 @@ export default function NewsletterSubscription() {
 
   return (
     <section className="container mx-auto px-4">
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-primary/30 to-primary/20 p-6 md:p-10">
+      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-primary/30 to-primary/20 p-6 md:p-0">
         <div className="absolute inset-0 bg-[url('/images/hero-bg.png')] opacity-10" />
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 opacity-20">
@@ -29,13 +29,13 @@ export default function NewsletterSubscription() {
           <Leaf className="h-32 w-32 -rotate-45 text-primary/40" />
         </div>
 
-        <div className="relative mx-auto max-w-6xl">
-          <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center">
+        <div className="relative mx-auto ">
+          <div className="grid gap-8 md:grid-cols-2 md:gap-12 items-center ">
             {/* Left column - Text content */}
-            <div className="space-y-4">
+            <div className="space-y-2 lg:space-y-4 p-4 lg:p-10">
               {/* Newsletter Header with Ribbon Effect */}
-              <div className="relative inline-block mb-8">
-                <div className="bg-primary text-primary-foreground text-2xl font-bold py-2 px-6 relative">
+              <div className="relative inline-block mb-2 lg:mb-8">
+                <div className="bg-primary text-primary-foreground text-xl lg:text-2xl font-bold py-2 px-6 relative">
                   Newsletter
                   {/* Left ribbon tail */}
                   <div className="absolute left-0 bottom-0 translate-y-full border-l-[20px] border-l-transparent border-t-[12px] border-t-primary/50"></div>
@@ -44,11 +44,11 @@ export default function NewsletterSubscription() {
                 </div>
               </div>
 
-              <h2 className="text-3xl md:text-4xl font-bold text-primary">
+              <h2 className="text-3xl md:text-2xl lg:text-4xl font-bold text-primary">
                 Subscribe Newsletter
                 <span className="block">to get Offers</span>
               </h2>
-              <p className="text-muted-foreground max-w-md">
+              <p className="text-muted-foreground max-lg:text-sm max-w-md">
                 Enjoy early access to sales, new product launches, expert
                 advice, and special offers delivered straight to your inbox.
               </p>
@@ -78,14 +78,14 @@ export default function NewsletterSubscription() {
             </div>
 
             {/* Right column - Image */}
-            <div className="relative hidden md:block">
-              <div className="absolute inset-0 backdrop-blur-sm rounded-xl"></div>
-              <div className="relative p-6 h-96">
+            <div className="relative hidden  md:block w-full h-full max-lg:min-h-[auto]">
+              <div className=" h-full">
                 <Image
-                  src="/images/newsletter.png"
-                  alt="Fresh fruits arrangement"
+                  src="https://storage.googleapis.com/giftlist-31067.appspot.com/blog/assets/heroes/eid-gift-etiquette-for-non-muslims.webp?v=r2"
+                  // src="/images/newsletter.png"
+                  alt="RyzoBD Newsletter"
                   fill
-                  className="w-full h-auto rounded-lg object-contain"
+                  className="w-full h-full  rounded-lg object-cover "
                 />
               </div>
             </div>
