@@ -14,7 +14,7 @@ export const siteInfo = {
   supportPhone: "+880 01872686356",
   socialLinks: {
     facebook: "https://www.facebook.com/RyzoBD",
-    instagram: "https://www.instagram.com",
-    youtube: "https://www.youtube.com",
+    instagram: "https://www.instagram.com/ryzobd",
+    youtube: "https://youtube.com/@ryzobd?si=g3vHN7NKmWBvHZsZ",
   },
 };
