@@ -32,18 +32,18 @@ export default function OfferCardSection() {
           </div>
           <div className="relative z-[5] p-4 md:p-8">
             <p className="mb-2 text-lg font-semibold text-primary">
-              Organic Food
+              Gifts & Gadgets
             </p>
             <h3 className="mb-2 text-3xl font-bold tracking-tight">
-              Organic Food Bundle
+              Stylish Tech Gift Bundle
             </h3>
             <p className=" mb-2 md:mb-4 text-muted-foreground ">
-              Enjoy a variety of organic fruits, vegetables,
-              <br /> and honey sourced from local farms
+              Curated gadgets and stylish accessories,
+              <br /> perfect for gifting tech lovers
             </p>
             <Link href="/products">
               <Button className="bg-primary hover:bg-primary/90 font-semibold text-primary-foreground">
-                Order Now
+                Shop Gifts
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
@@ -74,18 +74,18 @@ export default function OfferCardSection() {
           </div>
           <div className="relative top-0 z-[5] p-4 md:p-8 md:left-20">
             <p className="mb-2 text-lg font-semibold text-primary">
-              Organic Food
+              Smart Gifts
             </p>
             <h3 className="mb-2 text-3xl font-bold tracking-tight">
-              Organic Food Bundle
+              Smart Home Starter Kit
             </h3>
             <p className=" mb-2 md:mb-4 text-muted-foreground">
-              Enjoy a variety of organic fruits, vegetables,<br /> and honey sourced
-              from local farms
+              Includes smart speaker, smart bulb, and a compact power bank.
+              <br /> Ideal bundle for tech-curious friends and family.
             </p>
-            <Link href="/products">
+            <Link href="/products?category=smart-kits">
               <Button className="bg-primary hover:bg-primary/90 font-semibold text-primary-foreground">
-                Order Now
+                Browse Kit
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
