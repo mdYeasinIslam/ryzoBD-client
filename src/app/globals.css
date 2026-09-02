@@ -20,7 +20,7 @@ body {
 }
 
 @layer base {
-  :root {
+  .rroot {
     /* --background: 38 100% 98%; #FFFCF7 */
     /* --background: 30 25% 98%; #FCFBFA - frescobite */
     --background: 0 0% 100%; /* #FFFFFF - frescobite */
@@ -34,13 +34,13 @@ body {
     /* --primary: 38 100% 51%; #FFA103 - frescobite -> orange */
     /* --primary: 142 38% 51%; #53B175 - grocery store -> greenish */
       /*--primary: 26.8 100% 49.61%;#FD7100 - grocery store -> greenish */
-    --primary:29.03 63.27% 38.43%;    /*24 95% 53% -----34.79 80.86% 59.02%-----225.93 70.73% 40.2%---- 20 25% 18% #FD7100 25 32% 24%- grocery store -> greenish */
+    --primary:24 30% 23%;    /*29.03 63.27% 38.43%-----24 95% 53% -----34.79 80.86% 59.02%-----225.93 70.73% 40.2%---- 20 25% 18% #FD7100 25 32% 24%- grocery store -> greenish */
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
-    --accent: 38 100% 98%; /* #FFFCF7 */
+    --accent:35 53% 56% ; /*38 100% 98% #FFFCF7 */
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -56,7 +56,42 @@ body {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
-  .dark {
+  :root {
+  --background: 36 33% 98%;
+  --foreground: 24 18% 12%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 24 18% 12%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 24 18% 12%;
+
+  --primary: 24 30% 23%;
+  --primary-foreground: 36 33% 98%;
+
+  --secondary: 33 24% 94%;
+  --secondary-foreground: 24 25% 20%;
+
+  --muted: 32 20% 95%;
+  --muted-foreground: 24 8% 45%;
+
+  --accent: 36 44% 94%;
+  --accent-foreground: 24 30% 23%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 30 15% 88%;
+  --input: 30 15% 88%;
+
+  --ring: 24 30% 23%;
+
+  --premium: 35 53% 56%;
+  --premium-foreground: 24 25% 14%;
+
+  --radius: 0.625rem;
+}
+  .ddark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
@@ -82,6 +117,35 @@ body {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+  .dark {
+  --background: 24 14% 8%;
+  --foreground: 36 25% 95%;
+
+  --card: 24 12% 11%;
+  --card-foreground: 36 25% 95%;
+
+  --popover: 24 12% 11%;
+  --popover-foreground: 36 25% 95%;
+
+  --primary: 35 45% 62%;
+  --primary-foreground: 24 18% 10%;
+
+  --secondary: 24 10% 16%;
+  --secondary-foreground: 36 25% 94%;
+
+  --muted: 24 10% 16%;
+  --muted-foreground: 30 8% 65%;
+
+  --accent: 27 15% 18%;
+  --accent-foreground: 36 30% 92%;
+
+  --destructive: 0 62% 45%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 24 9% 20%;
+  --input: 24 9% 20%;
+  --ring: 35 45% 62%;
+}
 }
 
 @layer base {

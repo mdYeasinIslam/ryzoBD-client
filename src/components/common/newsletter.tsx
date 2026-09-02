@@ -20,7 +20,8 @@ export default function NewsletterSubscription() {
   return (
     <section className="container mx-auto px-4">
       <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-primary/30 to-primary/20 p-6 md:p-0">
-        <div className="absolute inset-0 bg-[url('/images/hero-bg.png')] opacity-10" />
+        {/* <div className="absolute inset-0 bg-[url('/images/hero-bg.png')] opacity-10" /> */}
+        <div className="absolute inset-0  opacity-10" />
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 opacity-20">
           <Leaf className="h-40 w-40 rotate-45 text-primary/40" />
