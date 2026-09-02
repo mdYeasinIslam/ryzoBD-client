@@ -2,8 +2,8 @@ import NewsletterSubscription from "@/components/common/newsletter";
 import Banner from "./components/banner";
 import ExploreCategoriesSection from "./components/explore-categories";
 import FeaturedProducts from "./components/feature-products";
-import OfferCardSection from "./components/offer-card";
 import PopularProducts from "./components/popular-products";
+import OfferCardSectionPro from "./components/offer-cardPro";
 // import FeatureProductCard from "./components/product";
 
 export default async function Home() {
@@ -14,7 +14,7 @@ export default async function Home() {
       <Banner />
       <ExploreCategoriesSection />
       <FeaturedProducts />
-      <OfferCardSection />
+      <OfferCardSectionPro />
       {/* <FeatureProductCard /> */}
       <PopularProducts />
       <NewsletterSubscription />
