@@ -12,7 +12,7 @@ const CategoriesList = (props: { categories: Category[] }) => {
   console.log("category", categoryName);
   return (
     <div className="space-y-4">
-      <h2 className="font-semibold text-lg">CATEGORIES</h2>
+      <h2 className="font-semibold text-base font-inter">CATEGORIES</h2>
       <div className="space-y-2">
         <Link
           href={setSearchParams({
@@ -22,7 +22,7 @@ const CategoriesList = (props: { categories: Category[] }) => {
           })}
           onClick={() => setCategoryName("All")}
           className={cn(
-            "flex items-center font-semibold cursor-pointer  hover:bg-primary  hover:text-white transition-colors rounded-md px-2 py-1",
+            "flex items-center text-sm font-semibold cursor-pointer  hover:bg-primary  hover:text-white transition-colors rounded-md px-2 py-1",
             categoryName === "All" && "bg-primary text-white",
           )}
         >
@@ -38,7 +38,7 @@ const CategoriesList = (props: { categories: Category[] }) => {
             onClick={() => setCategoryName(category.slug)}
             key={category.name}
             className={cn(
-              "flex items-center font-semibold cursor-pointer  hover:bg-primary  hover:text-white transition-colors rounded-md px-2 py-1",
+              "flex items-center text-sm font-semibold cursor-pointer  hover:bg-primary  hover:text-white transition-colors rounded-md px-2 py-1",
               category.slug === categoryName && "bg-primary text-white",
             )}
           >
