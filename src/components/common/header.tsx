@@ -100,10 +100,9 @@ export default function Component() {
       );
     }
   };
-
   return (
     <>
-      <header className="border-b border-b-muted sticky top-0 z-10 bg-background">
+      <header className="border-b border-b-muted sticky top-0 z-40 bg-background">
         <CartSheet isOpen={isOpenCartSheet} setIsOpen={setIsOpenCartSheet} />
         {/* TODO: Mobile sidebar will be added later */}
         {/* <MobileSidebarSheet
@@ -247,30 +246,36 @@ export default function Component() {
           <div className="container mx-auto px-4 flex items-center gap-6">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="font-bold focus-visible:outline-none">
+                <Button className="font-bold focus-visible:outline-none font-inter">
                   {/* <Menu className="h-5 w-5 mr-2" /> */}
                   Browse All Categories
                   <ChevronDown className="h-4 w-4 ml-2" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
-                {categories.map(
-                  (category: { _id: string; image: string; name: string }) => (
-                    <DropdownMenuItem
-                      key={category._id}
-                      className="flex items-center hover:text-primary focus:text-white focus:bg-primary hover:bg-primary gap-2 py-2 cursor-pointer"
-                    >
-                      <Image
-                        src={category.image}
-                        alt={category.name}
-                        width={20}
-                        height={20}
-                        className="rounded-md"
-                      />
-                      <span className="text-lg font-bold">{category.name}</span>
-                    </DropdownMenuItem>
-                  ),
-                )}
+                {categories?.map(
+                    (category: {
+                      _id: string;
+                      image: string;
+                      name: string;
+                    }) => (
+                      <DropdownMenuItem
+                        key={category._id}
+                        className="flex items-center hover:text-primary focus:text-white focus:bg-primary hover:bg-primary gap-2 py-2 cursor-pointer"
+                      >
+                        <Image
+                          src={category.image}
+                          alt={category.name}
+                          width={40}
+                          height={40}
+                          className="rounded-md"
+                        />
+                        <span className="text-sm font-bold font-inter">
+                          {category.name}
+                        </span>
+                      </DropdownMenuItem>
+                    ),
+                  )}
               </DropdownMenuContent>
             </DropdownMenu>
             <div className="flex items-center gap-4">

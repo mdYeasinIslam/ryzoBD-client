@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import './globals.css';
+import { Inter } from "next/font/google";
+import "./globals.css";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
 import { Toaster } from "@/components/ui/toaster";
@@ -26,10 +27,18 @@ const quickSand = localFont({
   variable: "--font-quick-sand",
   weight: "100 900",
 });
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 
+  // Optional explicit fallbacks
+  fallback: ["Arial", "sans-serif"],
+});
 export const metadata: Metadata = {
   title: "RayzoShop",
-  description: "It's an e-commerce website for RayzoShop. You can buy your favorite products from here.",
+  description:
+    "It's an e-commerce website for RayzoShop. You can buy your favorite products from here.",
 };
 
 export default function RootLayout({
@@ -39,7 +48,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${quickSand.variable} antialiased`}>
+      <body className={`${quickSand.variable} ${inter.variable} antialiased`}>
         {/* TODO: This suspense boundary added cause without this boundary build error happening */}
         <Suspense>
           <Provider>

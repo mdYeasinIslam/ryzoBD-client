@@ -33,14 +33,14 @@ const ProductCard = ({ product }: { product: Product }) => {
         name,
         price: salePrice,
         featuredImage,
-      })
+      }),
     );
   };
   const cartProduct = products.find((product) => product._id === _id);
   return (
     <Card className="group h-full relative overflow-hidden rounded-xl border-primary shadow-none transition-all duration-300">
-      <CardContent className="p-4 flex flex-col justify-between h-full">
-        <div className="relative h-52 flex justify-center items-center overflow-hidden">
+      <CardContent className="p-0 flex flex-col justify-between h-full">
+        <div className="relative max-h-64 h-full w-full flex justify-center items-center overflow-hidden">
           {salePrice < price && (
             <div className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs font-bold px-3 py-1.5 rounded-full shadow-md z-10">
               {productOffPercent(price, salePrice)}% OFF
@@ -59,78 +59,80 @@ const ProductCard = ({ product }: { product: Product }) => {
             />
           </Link>
         </div>
-        <div className="mt-4">
-          <div className="text-sm border border-primary/50 inline-block px-1 rounded font-medium text-gray-500 mb-2">
-            {sellUnit?.toLowerCase()}
-          </div>
-          <Link href={`/products/${slug}`}>
-            <h3 className="font-semibold text-base mb-2 h-12 line-clamp-2 hover:text-primary transition-colors">
-              {name}
-            </h3>
-          </Link>
-          {averageRating > 0 && (
-            <div className="flex items-center gap-1 mb-3">
-              {[...Array(5)].map((_, i) => (
-                <StarIcon
-                  key={i}
-                  className={`h-4 w-4 ${
-                    i < averageRating
-                      ? "text-yellow-400 fill-yellow-400"
-                      : "text-gray-200"
-                  }`}
-                />
-              ))}
-              <span className="text-sm text-gray-500 ml-2">
-                ({averageRating})
-              </span>
+        <div className="p-4">
+          <div>
+            <div className="text-sm border border-primary/50 inline-block px-1 rounded font-medium text-gray-500 mb-2">
+              {sellUnit?.toLowerCase()}
             </div>
-          )}
-        </div>
-        <div className="flex justify-between items-center">
-          <div className="space-y-1 flex gap-1">
-            <div className="font-bold text-lg [word-spacing:-0.25rem] text-primary">
-              {salePrice} ৳
-            </div>
-            {salePrice < price && (
-              <div className="text-sm text-gray-500 [word-spacing:-0.25rem] line-through">
-                {price} ৳
+            <Link href={`/products/${slug}`}>
+              <h3 className="font-semibold text-base mb-2 h-12 line-clamp-2 hover:text-primary transition-colors">
+                {name}
+              </h3>
+            </Link>
+            {averageRating > 0 && (
+              <div className="flex items-center gap-1 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <StarIcon
+                    key={i}
+                    className={`h-4 w-4 ${
+                      i < averageRating
+                        ? "text-yellow-400 fill-yellow-400"
+                        : "text-gray-200"
+                    }`}
+                  />
+                ))}
+                <span className="text-sm text-gray-500 ml-2">
+                  ({averageRating})
+                </span>
               </div>
             )}
           </div>
-          {cartProduct ? (
-            <div className="flex items-center">
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8"
-                onClick={() =>
-                  dispatch(updateCartQuantity({ _id, quantity: -1 }))
-                }
-              >
-                <Minus className="h-3 w-3" />
-              </Button>
-              <span className="w-8 text-center">{cartProduct.quantity}</span>
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8"
-                onClick={() =>
-                  dispatch(updateCartQuantity({ _id, quantity: 1 }))
-                }
-              >
-                <Plus className="h-3 w-3" />
-              </Button>
+          <div className="flex justify-between items-center ">
+            <div className="space-y-1 flex gap-1">
+              <div className="font-bold text-lg [word-spacing:-0.25rem] text-primary">
+                {salePrice} ৳
+              </div>
+              {salePrice < price && (
+                <div className="text-sm text-gray-500 [word-spacing:-0.25rem] line-through">
+                  {price} ৳
+                </div>
+              )}
             </div>
-          ) : (
-            <Button
-              size="sm"
-              className="rounded-full hover:scale-105 transition-transform"
-              aria-label="Add to cart"
-              onClick={handleAddToCart}
-            >
-              <ShoppingBasket className="h-5 w-5" />
-            </Button>
-          )}
+            {cartProduct ? (
+              <div className="flex items-center">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-8 w-8"
+                  onClick={() =>
+                    dispatch(updateCartQuantity({ _id, quantity: -1 }))
+                  }
+                >
+                  <Minus className="h-3 w-3" />
+                </Button>
+                <span className="w-8 text-center">{cartProduct.quantity}</span>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-8 w-8"
+                  onClick={() =>
+                    dispatch(updateCartQuantity({ _id, quantity: 1 }))
+                  }
+                >
+                  <Plus className="h-3 w-3" />
+                </Button>
+              </div>
+            ) : (
+              <Button
+                size="sm"
+                className="rounded-full hover:scale-105 transition-transform"
+                aria-label="Add to cart"
+                onClick={handleAddToCart}
+              >
+                <ShoppingBasket className="h-5 w-5" />
+              </Button>
+            )}
+          </div>
         </div>
       </CardContent>
     </Card>
