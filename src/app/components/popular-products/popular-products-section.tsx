@@ -83,7 +83,7 @@ export default function PopularProductsSection(props: Props) {
 
         <div className="relative grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
           {products.length > 0 &&
-            products.map((product) => (
+            products?.slice(0,5).map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
         </div>
