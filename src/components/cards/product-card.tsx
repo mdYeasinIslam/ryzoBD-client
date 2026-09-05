@@ -48,14 +48,14 @@ const ProductCard = ({ product }: { product: Product }) => {
           )}
           <Link
             href={`/products/${slug}`}
-            className="relative w-full h-full flex justify-center items-center"
+            className="relative w-full! h-full flex justify-center items-center"
           >
             <Image
-              src={featuredImage}
+              src={featuredImage}   
               alt={name}
-              width={200}
-              height={200}
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 mx-auto"
+              width={500}
+              height={500}
+              className="w-full! h-full object-cover transition-transform duration-300 group-hover:scale-110 mx-auto"
             />
           </Link>
         </div>

@@ -31,11 +31,11 @@ export const SHIPPING_AREAS = {
   insideDhakaCity: {
     value: "IDC",
     name: "Inside Dhaka City",
-    shippingCharge: 50,
+    shippingCharge: 70,
   },
   outsideDhakaCity: {
     value: "ODC",
     name: "Outside Dhaka City",
-    shippingCharge: 100,
+    shippingCharge: 120,
   },
 };
