@@ -100,7 +100,7 @@ export default async function ProductPage({
           />
         </div>
       </div>
-      <div className="w-full container mx-auto p-4">
+      <div className="w-full container mx-auto p-4 border-2 border-primary/20">
         <Tabs defaultValue="description" className="w-full">
           <TabsList className="w-full sm:w-auto bg-gray-50/80 p-1 rounded-xl">
             <TabsTrigger
