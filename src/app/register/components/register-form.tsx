@@ -183,9 +183,9 @@ export default function RegisterForm({
           <div className="flex justify-center">
             <Button
               variant="outline"
-              className="w-1/2 h-11 border-primary/20 hover:bg-primary/10 transition-colors"
+              className="w-1/2 h-11 border-primary/20 hover:bg-primary/10 transition-colors hover:border-lime-600"
             >
-              <Icons.google className="mr-2 h-4 w-4 text-primary" />
+              <Icons.google className="mr-2 h-4 w-4 text-lime-600" />
               Continue with Google
             </Button>
           </div>
@@ -195,7 +195,7 @@ export default function RegisterForm({
             Already have an account?{" "}
             <Link
               href="/login"
-              className="text-primary hover:text-primary/80 font-medium"
+              className="text-primary hover:text-primary/80 font-medium hover:underline"
             >
               Sign in
             </Link>

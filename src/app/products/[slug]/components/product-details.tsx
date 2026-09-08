@@ -115,7 +115,7 @@ const ProductDetails = (props: Props) => {
         <span className="text-4xl font-bold text-primary">৳ {salePrice}</span>
         {price > salePrice && (
           <span className="text-sm text-muted-foreground line-through">
-            ${price}
+            ৳{price}
           </span>
         )}
       </div>

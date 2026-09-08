@@ -1,77 +1,17 @@
 import Link from "next/link";
-import React from "react";
 // import payment from "../../../public/svg/Payment.svg";
+import { siteInfo } from "@/config/site-info";
+import { Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
+import facebook from "../../../public/svg/facebook.svg";
 import instagram from "../../../public/svg/instagram.svg";
 import youtube from "../../../public/svg/youtube.svg";
-import facebook from "../../../public/svg/facebook.svg";
-import bestPrice from "../../../public/svg/best-price.svg";
-import refund from "../../../public/svg/refund.svg";
-import delivery from "../../../public/svg/free-delivery.svg";
-import Image from "next/image";
-import { Mail, MapPin, Phone } from "lucide-react";
-import { siteInfo } from "@/config/site-info";
 
 const Footer = () => {
   return (
     <footer>
       <div className="container mx-auto px-4">
-        {/* Features Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-12">
-          <div className="bg-background/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300 flex items-center gap-4 border border-primary">
-            <div className="bg-transparent p-3 rounded-lg">
-              <Image
-                src={bestPrice}
-                priority
-                alt="best price"
-                className="w-14 h-12"
-              />
-            </div>
-            <div>
-              <h4 className="font-semibold text-lg text-foreground">
-                Best Price & Deals
-              </h4>
-              <p className="text-muted-foreground">
-                Do not miss our daily amazing deals and unbeatable prices
-              </p>
-            </div>
-          </div>
-          <div className="bg-background/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300 flex items-center gap-4 border border-primary">
-            <div className="bg-transparent p-3 rounded-lg">
-              <Image
-                src={refund}
-                priority
-                alt="refund policy"
-                className="w-14 h-12"
-              />
-            </div>
-            <div>
-              <h4 className="font-semibold text-lg text-foreground">
-                Money Back Guarantee
-              </h4>
-              <p className="text-muted-foreground">
-                If your items have any damage, we agree to refund it promptly
-              </p>
-            </div>
-          </div>
-          <div className="bg-background/50 rounded-xl p-6 hover:shadow-lg transition-all duration-300 flex items-center gap-4 border border-primary">
-            <div className="bg-transparent p-3 rounded-lg">
-              <Image
-                src={delivery}
-                priority
-                alt="delivery"
-                className="w-14 h-12"
-              />
-            </div>
-            <div>
-              <h4 className="font-semibold text-lg text-foreground">
-                Quality Assurance
-              </h4>
-              <p className="text-muted-foreground">
-                We ensure the best quality of our products for your satisfaction
-              </p>
-            </div>
-          </div>
-        </div>
+
 
         {/* Main Footer Content */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 py-12 border-t border-gray-200">
