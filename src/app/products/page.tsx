@@ -56,7 +56,7 @@ export default async function ProductsPageContent({
         <div className="flex flex-col gap-4 space-y-4 md:space-y-0 md:flex-row md:space-x-4">
           {/* Sidebar */}
           <div className="w-full md:w-1/4 lg:w-1/5 space-y-6 ">
-            <div className="space-y-5 border border-primary/20 rounded p-3">
+            <div className="space-y-6 border border-primary/20 rounded p-3">
               {/* Price Filter */}
               <PriceFilterCopy />
               <Divide className="h-[1px] w-full bg-primary/30" />

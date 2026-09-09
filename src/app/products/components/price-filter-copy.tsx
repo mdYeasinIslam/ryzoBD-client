@@ -42,6 +42,22 @@ const PriceFilterCopy = () => {
     );
   };
 
+  const handleSliderChange = (newValues: number[]) => {
+    setValues(newValues);
+
+    const isDefault = newValues[0] === MIN_PRICE && newValues[1] === MAX_PRICE;
+    
+    router.push(
+      setSearchParams({
+        searchParams: searchParams.toString(),
+        params: isDefault ? {} : {
+          min_price: newValues[0].toString(),
+          max_price: newValues[1].toString(),
+        },
+      }),
+    );
+  };
+
   return (
     <div className="w-full space-y-3">
       {/* Heading */}
@@ -100,7 +116,7 @@ const PriceFilterCopy = () => {
       <div className="px-1 pt-">
         <DualRangeSlider
           value={values}
-          onValueChange={setValues}
+          onValueChange={handleSliderChange}
           min={MIN_PRICE}
           max={MAX_PRICE}
           step={1}
@@ -108,13 +124,13 @@ const PriceFilterCopy = () => {
       </div>
 
       {/* Apply button */}
-      <Button
+      {/* <Button
         onClick={handleFilter}
         variant="outline"
         className=" w-full rounded-md  border-primary/20 bg-white text-[15px] font-semibold text-primary shadow-sm transition-all hover:bg-primary/20"
       >
         Apply price
-      </Button>
+      </Button> */}
     </div>
   );
 };
