@@ -13,6 +13,7 @@ import Sort from "./components/sort";
 import ClearFilters from "./components/clear-filters";
 import PriceFilterCopy from "./components/price-filter-copy";
 import { Divide } from "lucide-react";
+import LeftSideContent from "./components/left-side";
 
 export default async function ProductsPageContent({
   searchParams,
@@ -53,17 +54,10 @@ export default async function ProductsPageContent({
   return (
     <>
       <div className="container mx-auto space-y-6 p-4">
-        <div className="flex flex-col gap-4 space-y-4 md:space-y-0 md:flex-row md:space-x-4">
+        <div className="flex flex-col gap-0 md:gap-4 space-y-4 md:space-y-0 md:flex-row md:space-x-4">
           {/* Sidebar */}
-          <div className="w-full md:w-1/4 lg:w-1/5 space-y-6 ">
-            <div className="space-y-6 border border-primary/20 rounded p-3">
-              {/* Price Filter */}
-              <PriceFilterCopy />
-              <Divide className="h-[1px] w-full bg-primary/30" />
-              {/* Categories */}
-              <Categories />
-            </div>
-
+          <div className="w-full md:w-1/4 lg:w-1/5 md:space-y-6 ">
+            <LeftSideContent />
             {/* Best Sellers */}
             {/* TODO: Need to add best sellers products */}
             {/* <div className="space-y-4">
@@ -88,7 +82,6 @@ export default async function ProductsPageContent({
                 ))}
               </div>
             </div> */}
-
             {/* Tags */}
             {/* <div className="space-y-4">
               <h2 className="font-semibold text-lg">SEARCH BY TAGS</h2>
@@ -103,21 +96,25 @@ export default async function ProductsPageContent({
           </div>
 
           {/* Main Content */}
-          <div className="w-full md:w-3/4 space-y-6">
-            {/* Search and Filter Bar */}
-            <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:justify-between md:items-center">
-              <ClearFilters />
-              <div className="flex items-center space-x-4">
-                <span className="text-sm text-muted-foreground">
-                  Showing {(pagination.currentPage - 1) * pagination.limit + 1}–
-                  {(pagination.currentPage - 1) * pagination.limit +
-                    products.length}{" "}
-                  of {pagination.totalItems} results
-                </span>
-                {/* Sort By */}
-                <Sort />
-                {/* TODO: Need to add view toggling */}
-                {/* <div className="flex space-x-2">
+          <div className="w-full md:w-3/4 space-y-2 lg:space-y-4">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center">
+              <h1 className="text-lg md:text-base lg:text-xl font-semibold font-inter tracking-widest">All Products</h1>
+              {/* Search and Filter Bar */}
+              <div className="flex flex-col space-y-0 md:flex-row md:justify-between md:items-center">
+                <ClearFilters />
+                <div className="flex items-center gap-2 lg:gap-4">
+                  <span className="w-full text-sm md:text-end text-muted-foreground">
+                    Showing{" "}
+                    {(pagination.currentPage - 1) * pagination.limit + 1}–
+                    {(pagination.currentPage - 1) * pagination.limit +
+                      products.length}{" "}
+                    of {pagination.totalItems}{" "}
+                    <span className="hidden lg:inline-block">results</span>
+                  </span>
+                  {/* Sort By */}
+                  <Sort />
+                  {/* TODO: Need to add view toggling */}
+                  {/* <div className="flex space-x-2">
                   <Button variant="outline" size="icon">
                     <LayoutGrid className="h-4 w-4" />
                   </Button>
@@ -125,6 +122,7 @@ export default async function ProductsPageContent({
                     <List className="h-4 w-4" />
                   </Button>
                 </div> */}
+                </div>
               </div>
             </div>
             {products.length > 0 ? (

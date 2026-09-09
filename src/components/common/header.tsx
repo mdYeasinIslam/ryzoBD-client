@@ -267,7 +267,7 @@ export default function Component() {
           <div className="container mx-auto px-4 flex items-center justify-between gap-6">
             <div className="">
               {pathname === "/products" ? (
-                <>Visit Products</>
+                <></>
               ) : (
                 <>
                   <DropdownMenu
@@ -351,14 +351,14 @@ export default function Component() {
             </div>
             <div className="flex items-center  gap-4">
               <Link
-                className="flex items-center gap-2 text-base font-semibold hover:underline cursor-pointer"
+                className="flex items-center gap-1 text-base font-semibold hover:underline cursor-pointer"
                 href="/"
               >
                 <Home className="h-4 w-4" />
                 Home
               </Link>
               <Link
-                className="flex items-center gap-2 text-base font-semibold hover:underline cursor-pointer"
+                className="flex items-center gap-1 text-base font-semibold hover:underline cursor-pointer"
                 href="/products"
               >
                 <ShoppingBag className="h-4 w-4" />

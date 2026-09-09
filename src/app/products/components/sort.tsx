@@ -26,7 +26,7 @@ const Sort = () => {
   const sort = searchParams.get("sort");
   return (
     <Select defaultValue={sort || ""} onValueChange={handleSortBy}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-full md:w-[180px]">
         <SelectValue placeholder="Sort by" />
       </SelectTrigger>
       <SelectContent>
