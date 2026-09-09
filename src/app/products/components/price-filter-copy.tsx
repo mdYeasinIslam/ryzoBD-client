@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { DualRangeSlider } from "@/components/ui/dual-range-slider";
 import { setSearchParams } from "@/lib/utils";
 import { ChevronUp } from "lucide-react";
@@ -12,6 +11,7 @@ const MAX_PRICE = 5000;
 
 const PriceFilterCopy = () => {
   const searchParams = useSearchParams();
+  const [isOpen, setIsOpen] = useState(true);
 
   const paramsMinPrice = searchParams.get("min_price");
   const paramsMaxPrice = searchParams.get("max_price");
@@ -77,61 +77,82 @@ const PriceFilterCopy = () => {
           Price
         </h2>
 
-        <ChevronUp className="h-4 w-4 stroke-[1.8]" />
+        <button
+          type="button"
+          onClick={() => setIsOpen((prev) => !prev)}
+          aria-label={isOpen ? "Collapse price filter" : "Expand price filter"}
+          className="rounded p-1 transition hover:bg-neutral-100"
+        >
+          <ChevronUp
+            className={`h-4 w-4 stroke-[1.8] transition-transform ${
+              isOpen ? "rotate-0" : "rotate-180"
+            }`}
+          />
+        </button>
       </div>
 
-      {/* Min / Max inputs */}
-      <div className="flex items-center gap-3">
-        <div className="relative flex-1">
-          <input
-            type="number"
-            min={MIN_PRICE}
-            max={values[1]}
-            value={values[0]}
-            onChange={(e) => {
-              const value = Number(e.target.value);
+      <div
+        className={`overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen
+            ? "max-h-60 translate-y-0 opacity-100"
+            : "max-h-0 -translate-y-2 opacity-0 pointer-events-none"
+        }`}
+      >
+        <div className="py-2">
+          {/* Min / Max inputs */}
+          <div className="flex items-center gap-3">
+            <div className="relative flex-1">
+              <input
+                type="number"
+                min={MIN_PRICE}
+                max={values[1]}
+                value={values[0]}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
 
-              setValues([
-                Math.min(Math.max(value, MIN_PRICE), values[1]),
-                values[1],
-              ]);
-            }}
-            placeholder="Min ৳"
-            className="h-8 w-full border border-primary/20 bg-white px-3 text-[15px] outline-none transition placeholder:text-neutral-500 focus:border-neutral-400"
-          />
+                  setValues([
+                    Math.min(Math.max(value, MIN_PRICE), values[1]),
+                    values[1],
+                  ]);
+                }}
+                placeholder="Min ৳"
+                className="h-8 w-full border border-primary/20 bg-white px-3 text-[15px] outline-none transition placeholder:text-neutral-500 focus:border-neutral-400"
+              />
+            </div>
+
+            <span className="text-black">−</span>
+
+            <div className="relative flex-1">
+              <input
+                type="number"
+                min={values[0]}
+                max={MAX_PRICE}
+                value={values[1]}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+
+                  setValues([
+                    values[0],
+                    Math.max(Math.min(value, MAX_PRICE), values[0]),
+                  ]);
+                }}
+                placeholder="Max ৳"
+                className="h-8 w-full border border-primary/20 bg-white px-3 text-[15px] outline-none transition placeholder:text-neutral-500 focus:border-neutral-400"
+              />
+            </div>
+          </div>
+
+          {/* Existing range slider */}
+          <div className="px-1 pt-3">
+            <DualRangeSlider
+              value={values}
+              onValueChange={handleSliderChange}
+              min={MIN_PRICE}
+              max={MAX_PRICE}
+              step={1}
+            />
+          </div>
         </div>
-
-        <span className="text-black">−</span>
-
-        <div className="relative flex-1">
-          <input
-            type="number"
-            min={values[0]}
-            max={MAX_PRICE}
-            value={values[1]}
-            onChange={(e) => {
-              const value = Number(e.target.value);
-
-              setValues([
-                values[0],
-                Math.max(Math.min(value, MAX_PRICE), values[0]),
-              ]);
-            }}
-            placeholder="Max ৳"
-            className="h-8 w-full border border-primary/20 bg-white px-3 text-[15px] outline-none transition placeholder:text-neutral-500 focus:border-neutral-400"
-          />
-        </div>
-      </div>
-
-      {/* Existing range slider */}
-      <div className="px-1 pt-">
-        <DualRangeSlider
-          value={values}
-          onValueChange={handleSliderChange}
-          min={MIN_PRICE}
-          max={MAX_PRICE}
-          step={1}
-        />
       </div>
 
       {/* Apply button */}

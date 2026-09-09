@@ -8,8 +8,11 @@ import Products from "./components/products";
 // import { Badge } from "@/components/ui/badge";
 // import { Button } from "@/components/ui/button";
 import ClearFilters from "./components/clear-filters";
-import LeftSideContent from "./components/left-side";
 import Sort from "./components/sort";
+import LeftSideContent from "./components/left-side";
+import PriceFilterCopy from "./components/price-filter-copy";
+import { Divide } from "lucide-react";
+import Categories from "./components/categories";
 
 export default async function ProductsPageContent({
   searchParams,
@@ -52,8 +55,9 @@ export default async function ProductsPageContent({
       <div className="container mx-auto space-y-6 px-4">
         <div className="flex flex-col gap-0 md:gap-4 space-y-4 md:space-y-0 md:flex-row md:space-x-4">
           {/* Sidebar */}
-          <div className="w-full md:w-1/4 lg:w-1/5 md:space-y-6 ">
-            <LeftSideContent />
+          <div className="w-full md:w-1/4 lg:w-1/5 md:space-y-6 max-sm:mt-4 ">
+            <LeftSideContent categories={<Categories />} />
+
             {/* Best Sellers */}
             {/* TODO: Need to add best sellers products */}
             {/* <div className="space-y-4">

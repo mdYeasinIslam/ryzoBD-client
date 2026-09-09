@@ -1,19 +1,21 @@
-import React from "react";
-import PriceFilterCopy from "./price-filter-copy";
-import { Divide, Filter, X } from "lucide-react";
-import Categories from "./categories";
+"use client";
+import { Divide, SlidersHorizontal, X } from "lucide-react";
+import PriceFilterCopy from "../price-filter-copy";
+import { ReactNode, useState } from "react";
 
-const LeftSideContent = () => {
-  //   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isModalOpen = false;
+interface LeftSideContentProps {
+  categories: ReactNode;
+}
+const LeftSideContent = ({ categories }: LeftSideContentProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
       {/* Mobile Filter Button */}
       <button
-        // onClick={() => setIsModalOpen(true)}
+        onClick={() => setIsModalOpen(true)}
         className="md:hidden flex items-center gap-2 px-3 py-1 border border-primary/20 rounded hover:bg-primary/5 transition"
       >
-        <Filter className="h-4 w-4" />
+        <SlidersHorizontal className="h-4 w-4" />
         <span>Filters</span>
       </button>
 
@@ -23,7 +25,8 @@ const LeftSideContent = () => {
         <PriceFilterCopy />
         <Divide className="h-[1px] w-full bg-primary/30" />
         {/* Categories */}
-        <Categories />
+        {/* <Categories /> */}
+        {categories}
       </div>
 
       {/* Mobile Modal */}
@@ -32,7 +35,7 @@ const LeftSideContent = () => {
           <div className="fixed h-full top-0 left-0 right-0 bg-white rounded-t-lg p-4 max-h-[99vh] overflow-y-auto">
             {/* Close Button */}
             <button
-              //   onClick={() => setIsModalOpen(false)}
+              onClick={() => setIsModalOpen(false)}
               className="absolute top-4 right-4 p-1 hover:bg-primary/10 rounded transition"
             >
               <X className="h-6 w-6" />
@@ -44,7 +47,8 @@ const LeftSideContent = () => {
               <PriceFilterCopy />
               <Divide className="h-[1px] w-full bg-primary/30" />
               {/* Categories */}
-              <Categories />
+              {/* <Categories /> */}
+              {categories}
             </div>
           </div>
         </div>
