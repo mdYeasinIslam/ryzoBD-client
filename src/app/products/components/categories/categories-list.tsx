@@ -14,7 +14,9 @@ const CategoriesList = (props: { categories: Category[] }) => {
   );
   return (
     <div className="space-y-4">
-      <h2 className="font-semibold text-base font-inter">CATEGORIES</h2>
+      <h2 className="font-semibold text-sm font-inter tracking-widest">
+        CATEGORIES
+      </h2>
       <div className="space-y-2">
         <Link
           href={setSearchParams({

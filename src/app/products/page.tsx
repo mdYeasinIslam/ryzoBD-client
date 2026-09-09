@@ -11,6 +11,8 @@ import PriceFilter from "./components/price-filter";
 // import { Button } from "@/components/ui/button";
 import Sort from "./components/sort";
 import ClearFilters from "./components/clear-filters";
+import PriceFilterCopy from "./components/price-filter-copy";
+import { Divide } from "lucide-react";
 
 export default async function ProductsPageContent({
   searchParams,
@@ -53,12 +55,14 @@ export default async function ProductsPageContent({
       <div className="container mx-auto space-y-6 p-4">
         <div className="flex flex-col gap-4 space-y-4 md:space-y-0 md:flex-row md:space-x-4">
           {/* Sidebar */}
-          <div className="w-full md:w-1/4 space-y-6">
-            {/* Price Filter */}
-            <PriceFilter />
-
-            {/* Categories */}
-            <Categories />
+          <div className="w-full md:w-1/4 lg:w-1/5 space-y-6 ">
+            <div className="space-y-5 border border-primary/20 rounded p-3">
+              {/* Price Filter */}
+              <PriceFilterCopy />
+              <Divide className="h-[1px] w-full bg-primary/30" />
+              {/* Categories */}
+              <Categories />
+            </div>
 
             {/* Best Sellers */}
             {/* TODO: Need to add best sellers products */}
