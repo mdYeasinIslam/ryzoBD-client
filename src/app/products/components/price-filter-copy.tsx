@@ -30,27 +30,38 @@ const PriceFilterCopy = () => {
 
   const router = useRouter();
 
-  const handleFilter = () => {
+  //   const handleFilter = () => {
+  //     router.push(
+  //       setSearchParams({
+  //         searchParams: searchParams.toString(),
+  //         params: {
+  //           min_price: values[0].toString(),
+  //           max_price: values[1].toString(),
+  //         },
+  //       }),
+  //     );
+  //   };
+
+  const handleSliderChange = (newValues: number[]) => {
+    setValues(newValues);
+    const removeParams =
+      newValues[0] === MIN_PRICE && newValues[1] === MAX_PRICE;
+    if (removeParams) {
+      router.push(
+        setSearchParams({
+          searchParams: searchParams.toString(),
+          params: {
+            min_price: "",
+            max_price: "",
+          },
+        }),
+      );
+      return;
+    }
     router.push(
       setSearchParams({
         searchParams: searchParams.toString(),
         params: {
-          min_price: values[0].toString(),
-          max_price: values[1].toString(),
-        },
-      }),
-    );
-  };
-
-  const handleSliderChange = (newValues: number[]) => {
-    setValues(newValues);
-
-    const isDefault = newValues[0] === MIN_PRICE && newValues[1] === MAX_PRICE;
-    
-    router.push(
-      setSearchParams({
-        searchParams: searchParams.toString(),
-        params: isDefault ? {} : {
           min_price: newValues[0].toString(),
           max_price: newValues[1].toString(),
         },
