@@ -1,3 +1,5 @@
+import { time } from "console";
+
 export const siteInfo = {
   name: "RyzoBD",
   copyrightOwnerName: "RyzoBD",
@@ -12,6 +14,10 @@ export const siteInfo = {
   location: "Mirpur, Dhaka, Bangladesh",
   supportEmail: "support@ryzobd.com",
   supportPhone: "+880 01872686356",
+  customerSupport: {
+    time: "10:00 AM - 6:00 PM",
+    days: "Saturday - Thursday",
+  },
   socialLinks: {
     facebook: "https://www.facebook.com/RyzoBD",
     instagram: "https://www.instagram.com/ryzobd",

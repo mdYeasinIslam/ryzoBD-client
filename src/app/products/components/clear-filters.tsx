@@ -38,26 +38,26 @@ const ClearFilters = () => {
             <Button
               variant="secondary"
               onClick={clearFilters}
-              className="h-7 px-4"
+              className="h-7 bg-red-300 hover:bg-red-500 hover:text-white px-4"
             >
-              <span className="text-destructive">&#x2715;</span> Clear filters
+              <span className=" font-semibold">&#x2715;</span> Clear filters
             </Button>
             {paramsMinPrice && (
               <Button
                 onClick={() => removeParams("min_price")}
                 variant="secondary"
-                className="h-7 px-4"
+                className="h-7 bg-red-200 hover:bg-red-500 hover:text-white px-4"
               >
-                <span className="text-destructive">&#x2715;</span> Min Price
+                <span className="font-semibold">&#x2715;</span> Min Price
               </Button>
             )}
             {paramsMaxPrice && (
               <Button
                 onClick={() => removeParams("max_price")}
                 variant="secondary"
-                className="h-7 px-4"
+                className="h-7 bg-red-200 hover:bg-red-500 hover:text-white px-4"
               >
-                <span className="text-destructive">&#x2715;</span> Max Price
+                <span className="font-semibold">&#x2715;</span> Max Price
               </Button>
             )}
           </>

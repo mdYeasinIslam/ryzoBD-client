@@ -54,6 +54,7 @@ import { siteInfo } from "@/config/site-info";
 
 export default function Component() {
   const [isOpenCartSheet, setIsOpenCartSheet] = React.useState(false);
+  const [isCategoryMenuOpen, setIsCategoryMenuOpen] = React.useState(false);
   // TODO: Mobile menu will be added later if needed
   // const [isOpenMobileSidebarSheet, setIsOpenMobileSidebarSheet] =
   //   React.useState(false);
@@ -62,44 +63,91 @@ export default function Component() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search");
+  const isProductsPage = pathname === "/products";
+
   // TODO: will be implemented loader for product loading for search
   // const [, startTransition] = React.useTransition();
-  // console.log("pathname ->", pathname);
   const { data: { data: { categories = [] } = {} } = {} } =
     useGetCategoriesQuery({
       limit: 999,
       status: "published",
     });
+  const [categoryName, setCategoryName] = React.useState<string | null>("All");
+
   const router = useRouter();
   const { data: session } = useSession();
 
-  const handleLogout = () => {
+  const handleLogout = React.useCallback(() => {
     signOut({ redirect: true, callbackUrl: "/" });
     setIsDrawerOpen(false);
-  };
+  }, []);
 
-  const totalItems = products.reduce(
-    (acc, product) => acc + product.quantity,
-    0,
+  const totalItems = React.useMemo(
+    () => products.reduce((acc, product) => acc + product.quantity, 0),
+    [products],
   );
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    const form = new FormData(e.target as HTMLFormElement);
-    const query = form.get("query") as string;
-    const trimmedQuery = query.trim();
-    if (trimmedQuery) {
-      if (pathname !== "/products") {
-        return router.push(`/products?search=${trimmedQuery}`);
+  const mainNavLinks = React.useMemo(
+    () => [
+      { href: "/", label: "Home" },
+      { href: "/products", label: "Shop" },
+      { href: "/about", label: "About" },
+      { href: "/contact", label: "Contact" },
+    ],
+    [],
+  );
+
+  const mobileNavLinks = React.useMemo(
+    () => [
+      { href: "/", label: "Home", icon: Home },
+      { href: "/products", label: "Shop", icon: ShoppingBag },
+      { href: "/about", label: "About", icon: ShoppingBag },
+    ],
+    [],
+  );
+
+  const handleSearch = React.useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const form = new FormData(e.currentTarget);
+      const query = (form.get("query") as string | null)?.trim() ?? "";
+
+      if (!query) return;
+
+      if (!isProductsPage) {
+        router.push(`/products?search=${encodeURIComponent(query)}`);
+        return;
       }
-      return router.push(
+
+      router.push(
         setSearchParams({
           searchParams: searchParams.toString(),
-          params: { search: trimmedQuery },
+          params: { search: query },
         }),
       );
-    }
-  };
+    },
+    [isProductsPage, router, searchParams],
+  );
+
+  const getCategoryHref = React.useCallback(
+    (category: string) => {
+      const baseParams = isProductsPage ? searchParams.toString() : "";
+
+      return isProductsPage
+        ? setSearchParams({
+            searchParams: baseParams,
+            params: { category },
+            removeParams: ["page"],
+          })
+        : setSearchParams({
+            path: "/products",
+            searchParams: baseParams,
+            params: { category },
+            removeParams: ["page"],
+          });
+    },
+    [isProductsPage, searchParams],
+  );
   return (
     <>
       <header className="border-b border-b-muted sticky top-0 z-40 bg-background">
@@ -243,65 +291,107 @@ export default function Component() {
           </div>
         </div>
         <nav className="border-t border-t-muted py-2 hidden lg:block">
-          <div className="container mx-auto px-4 flex items-center gap-6">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button className="font-bold focus-visible:outline-none font-inter">
-                  {/* <Menu className="h-5 w-5 mr-2" /> */}
-                  Browse All Categories
-                  <ChevronDown className="h-4 w-4 ml-2" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                {categories?.map(
-                    (category: {
-                      _id: string;
-                      image: string;
-                      name: string;
-                    }) => (
-                      <DropdownMenuItem
-                        key={category._id}
-                        className="flex items-center hover:text-primary focus:text-white focus:bg-primary hover:bg-primary gap-2 py-2 cursor-pointer"
+          <div className="container mx-auto px-4 flex items-center justify-between gap-6">
+            <div className="">
+              {pathname === "/products" ? (
+                <div className="min-w-[214px] min-h-9"></div>
+              ) : (
+                <>
+                  <DropdownMenu
+                    open={isCategoryMenuOpen}
+                    onOpenChange={setIsCategoryMenuOpen}
+                  >
+                    <DropdownMenuTrigger asChild>
+                      <Button className="font-bold focus-visible:outline-none font-inter">
+                        {/* <Menu className="h-5 w-5 mr-2" /> */}
+                        Browse All Categories
+                        <ChevronDown className="h-4 w-4 ml-2" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56">
+                      {/* <DropdownMenuItem
+                        onSelect={() => setIsCategoryMenuOpen(false)}
                       >
-                        <Image
-                          src={category.image}
-                          alt={category.name}
-                          width={40}
-                          height={40}
-                          className="rounded-md"
-                        />
-                        <span className="text-sm font-bold font-inter">
-                          {category.name}
-                        </span>
-                      </DropdownMenuItem>
-                    ),
-                  )}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <div className="flex items-center gap-4">
-              <Link
-                className="flex items-center gap-2 text-base font-semibold hover:underline cursor-pointer"
-                href="/"
-              >
-                <Home className="h-4 w-4" />
-                Home
-              </Link>
-              <Link
-                className="flex items-center gap-2 text-base font-semibold hover:underline cursor-pointer"
-                href="/products"
-              >
-                <ShoppingBag className="h-4 w-4" />
-                Shop
-              </Link>
-              {/* <Link
-                className="flex items-center gap-2 text-sm font-medium hover:underline"
-                href="/offers"
-              >
-                <Ticket className="h-4 w-4" />
-                Offers
-              </Link> */}
+                        <Link
+                          // href={setSearchParams({
+                          //   searchParams: searchParams.toString(),
+                          //   params: { category: "" },
+                          //   removeParams: ["page"],
+                          // })}
+                          href={getCategoryHref("")}
+                          onClick={() => setCategoryName("All")}
+                          className={cn(
+                            "flex items-center justify-center w-full text-sm font-semibold cursor-pointer  hover:bg-primary  hover:text-white transition-colors rounded-md px-2 py-1",
+                            categoryName === "All" && "bg-primary text-white",
+                          )}
+                        >
+                          <span>All</span>
+                        </Link>
+                      </DropdownMenuItem> */}
+                      {categories?.map(
+                        (category: {
+                          _id: string;
+                          image: string;
+                          name: string;
+                          slug: string;
+                        }) => (
+                          <Link
+                            // href={setSearchParams({
+                            //   searchParams: searchParams.toString(),
+                            //   params: { category: category.slug },
+                            //   removeParams: ["page"],
+                            // })}
+                            key={category._id}
+                            href={getCategoryHref(category.slug)}
+                            onClick={() => setCategoryName(category.slug)}
+                            className={cn(
+                              "flex items-center gap-2 hover:text-white focus:text-white  hover:bg-primary py-2 cursor-pointer",
+                            )}
+                          >
+                            <DropdownMenuItem
+                              onSelect={() => setIsCategoryMenuOpen(false)}
+                              // onMouseOut={() => setIsCategoryMenuOpen(false)}
+                              className={cn(
+                                "flex items-center focus:bg-primary focus:text-white hover:bg-primary cursor-pointer",
+                                // category.slug === categoryName &&
+                                //   "bg-primary text-white",
+                              )}
+                            >
+                              <Image
+                                src={category.image}
+                                alt={category.name}
+                                width={40}
+                                height={40}
+                                className="rounded-md"
+                              />
+                              <span className="text-sm font-bold font-inter">
+                                {category.name}
+                              </span>
+                            </DropdownMenuItem>
+                          </Link>
+                        ),
+                      )}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </>
+              )}
             </div>
-            <div className="flex items-center gap-2 ml-auto">
+            {/* nav links */}
+            <div className="flex items-center gap-4">
+              {mainNavLinks.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  className={cn(
+                    "flex items-center gap-1 text-base font-semibold hover:underline cursor-pointer",
+                    pathname === href && "text-primary underline",
+                  )}
+                  href={href}
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+            <div className="flex items-center  gap-2 ">
               <a
                 href={`tel:${siteInfo.supportPhone}`}
                 className="flex items-center gap-2 hover:underline text-primary font-bold"
@@ -328,26 +418,19 @@ export default function Component() {
             <Menu className="h-6 w-6" />
             <span className="text-xs font-medium">Menu</span>
           </button> */}
-          <Link
-            href="/"
-            className={cn(
-              "flex flex-col items-center gap-1",
-              pathname === "/" && "text-primary",
-            )}
-          >
-            <Home className="h-6 w-6" />
-            <span className="text-xs font-semibold">Home</span>
-          </Link>
-          <Link
-            href="/products"
-            className={cn(
-              "flex flex-col items-center gap-1",
-              pathname === "/products" && "text-primary",
-            )}
-          >
-            <ShoppingBag className="h-6 w-6" />
-            <span className="text-xs font-semibold">Shop</span>
-          </Link>
+          {mobileNavLinks.map(({ href, label, icon: Icon }) => (
+            <Link
+              key={href}
+              href={href}
+              className={cn(
+                "flex flex-col items-center gap-1",
+                pathname === href && "text-primary",
+              )}
+            >
+              <Icon className="h-6 w-6" />
+              <span className="text-xs font-semibold">{label}</span>
+            </Link>
+          ))}
           {/* <Link href="#" className="flex flex-col items-center gap-1 relative">
             <ShoppingCart className="h-6 w-6 text-muted-foreground" />
             <Badge className="absolute -right-1 top-0 h-5 w-5 rounded-full p-0">

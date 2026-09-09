@@ -20,7 +20,7 @@ const offers = [
     description:
       "Smart and practical essentials designed to upgrade everyday living.",
     buttonText: "Browse Collection",
-    href: "/products?category=home",
+    href: "/products",
     image: "/images/home/offer-smart-home.png",
     alt: "Smart home products including speaker, lamp and useful gadgets",
   },

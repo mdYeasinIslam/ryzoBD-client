@@ -8,11 +8,15 @@ import { useState } from "react";
 const CategoriesList = (props: { categories: Category[] }) => {
   const { categories } = props;
   const searchParams = useSearchParams();
-  const [categoryName, setCategoryName] = useState<string | null>("All");
-  console.log("category", categoryName);
+  const categoryParam = searchParams.get("category");
+  const [categoryName, setCategoryName] = useState<string | null>(
+    categoryParam ?? "All",
+  );
   return (
     <div className="space-y-4">
-      <h2 className="font-semibold text-base font-inter">CATEGORIES</h2>
+      <h2 className="font-semibold text-sm font-inter tracking-widest">
+        CATEGORIES
+      </h2>
       <div className="space-y-2">
         <Link
           href={setSearchParams({
