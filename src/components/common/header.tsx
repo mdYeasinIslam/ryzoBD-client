@@ -54,6 +54,7 @@ import { siteInfo } from "@/config/site-info";
 
 export default function Component() {
   const [isOpenCartSheet, setIsOpenCartSheet] = React.useState(false);
+  const [isCategoryMenuOpen, setIsCategoryMenuOpen] = React.useState(false);
   // TODO: Mobile menu will be added later if needed
   // const [isOpenMobileSidebarSheet, setIsOpenMobileSidebarSheet] =
   //   React.useState(false);
@@ -70,6 +71,8 @@ export default function Component() {
       limit: 999,
       status: "published",
     });
+  const [categoryName, setCategoryName] = React.useState<string | null>("All");
+
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -87,6 +90,7 @@ export default function Component() {
     e.preventDefault();
     const form = new FormData(e.target as HTMLFormElement);
     const query = form.get("query") as string;
+
     const trimmedQuery = query.trim();
     if (trimmedQuery) {
       if (pathname !== "/products") {
@@ -99,6 +103,23 @@ export default function Component() {
         }),
       );
     }
+  };
+  const getCategoryHref = (category: string) => {
+    const baseParams = pathname === "/products" ? searchParams.toString() : "";
+    console.log(baseParams, "baseParams");
+    console.log(category, "category");
+    return pathname !== "/products"
+      ? setSearchParams({
+          path: "/products",
+          searchParams: baseParams,
+          params: { category },
+          removeParams: ["page"],
+        })
+      : setSearchParams({
+          searchParams: baseParams,
+          params: { category },
+          removeParams: ["page"],
+        });
   };
   return (
     <>
@@ -243,42 +264,92 @@ export default function Component() {
           </div>
         </div>
         <nav className="border-t border-t-muted py-2 hidden lg:block">
-          <div className="container mx-auto px-4 flex items-center gap-6">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button className="font-bold focus-visible:outline-none font-inter">
-                  {/* <Menu className="h-5 w-5 mr-2" /> */}
-                  Browse All Categories
-                  <ChevronDown className="h-4 w-4 ml-2" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                {categories?.map(
-                    (category: {
-                      _id: string;
-                      image: string;
-                      name: string;
-                    }) => (
-                      <DropdownMenuItem
-                        key={category._id}
-                        className="flex items-center hover:text-primary focus:text-white focus:bg-primary hover:bg-primary gap-2 py-2 cursor-pointer"
+          <div className="container mx-auto px-4 flex items-center justify-between gap-6">
+            <div className="">
+              {pathname === "/products" ? (
+                <>Visit Products</>
+              ) : (
+                <>
+                  <DropdownMenu
+                    open={isCategoryMenuOpen}
+                    onOpenChange={setIsCategoryMenuOpen}
+                  >
+                    <DropdownMenuTrigger asChild>
+                      <Button className="font-bold focus-visible:outline-none font-inter">
+                        {/* <Menu className="h-5 w-5 mr-2" /> */}
+                        Browse All Categories
+                        <ChevronDown className="h-4 w-4 ml-2" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56">
+                      {/* <DropdownMenuItem
+                        onSelect={() => setIsCategoryMenuOpen(false)}
                       >
-                        <Image
-                          src={category.image}
-                          alt={category.name}
-                          width={40}
-                          height={40}
-                          className="rounded-md"
-                        />
-                        <span className="text-sm font-bold font-inter">
-                          {category.name}
-                        </span>
-                      </DropdownMenuItem>
-                    ),
-                  )}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <div className="flex items-center gap-4">
+                        <Link
+                          // href={setSearchParams({
+                          //   searchParams: searchParams.toString(),
+                          //   params: { category: "" },
+                          //   removeParams: ["page"],
+                          // })}
+                          href={getCategoryHref("")}
+                          onClick={() => setCategoryName("All")}
+                          className={cn(
+                            "flex items-center justify-center w-full text-sm font-semibold cursor-pointer  hover:bg-primary  hover:text-white transition-colors rounded-md px-2 py-1",
+                            categoryName === "All" && "bg-primary text-white",
+                          )}
+                        >
+                          <span>All</span>
+                        </Link>
+                      </DropdownMenuItem> */}
+                      {categories?.map(
+                        (category: {
+                          _id: string;
+                          image: string;
+                          name: string;
+                          slug: string;
+                        }) => (
+                          <Link
+                            // href={setSearchParams({
+                            //   searchParams: searchParams.toString(),
+                            //   params: { category: category.slug },
+                            //   removeParams: ["page"],
+                            // })}
+                            key={category._id}
+                            href={getCategoryHref(category.slug)}
+                            onClick={() => setCategoryName(category.slug)}
+                            className={cn(
+                              "flex items-center gap-2 hover:text-white focus:text-white  hover:bg-primary py-2 cursor-pointer",
+                            )}
+                          >
+                            <DropdownMenuItem
+                              onSelect={() => setIsCategoryMenuOpen(false)}
+                              // onMouseOut={() => setIsCategoryMenuOpen(false)}
+                              className={cn(
+                                "flex items-center focus:bg-primary focus:text-white hover:bg-primary cursor-pointer",
+                                // category.slug === categoryName &&
+                                //   "bg-primary text-white",
+                              )}
+                            >
+                              <Image
+                                src={category.image}
+                                alt={category.name}
+                                width={40}
+                                height={40}
+                                className="rounded-md"
+                              />
+                              <span className="text-sm font-bold font-inter">
+                                {category.name}
+                              </span>
+                            </DropdownMenuItem>
+                          </Link>
+                        ),
+                      )}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </>
+              )}
+            </div>
+            <div className="flex items-center  gap-4">
               <Link
                 className="flex items-center gap-2 text-base font-semibold hover:underline cursor-pointer"
                 href="/"
@@ -301,7 +372,7 @@ export default function Component() {
                 Offers
               </Link> */}
             </div>
-            <div className="flex items-center gap-2 ml-auto">
+            <div className="flex items-center  gap-2 ">
               <a
                 href={`tel:${siteInfo.supportPhone}`}
                 className="flex items-center gap-2 hover:underline text-primary font-bold"
