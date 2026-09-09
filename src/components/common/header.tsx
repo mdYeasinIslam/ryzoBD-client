@@ -63,9 +63,10 @@ export default function Component() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search");
+  const isProductsPage = pathname === "/products";
+
   // TODO: will be implemented loader for product loading for search
   // const [, startTransition] = React.useTransition();
-  // console.log("pathname ->", pathname);
   const { data: { data: { categories = [] } = {} } = {} } =
     useGetCategoriesQuery({
       limit: 999,
@@ -76,51 +77,77 @@ export default function Component() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const handleLogout = () => {
+  const handleLogout = React.useCallback(() => {
     signOut({ redirect: true, callbackUrl: "/" });
     setIsDrawerOpen(false);
-  };
+  }, []);
 
-  const totalItems = products.reduce(
-    (acc, product) => acc + product.quantity,
-    0,
+  const totalItems = React.useMemo(
+    () => products.reduce((acc, product) => acc + product.quantity, 0),
+    [products],
   );
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    const form = new FormData(e.target as HTMLFormElement);
-    const query = form.get("query") as string;
+  const mainNavLinks = React.useMemo(
+    () => [
+      { href: "/", label: "Home" },
+      { href: "/products", label: "Shop" },
+      { href: "/about", label: "About" },
+      { href: "/contact", label: "Contact" },
+    ],
+    [],
+  );
 
-    const trimmedQuery = query.trim();
-    if (trimmedQuery) {
-      if (pathname !== "/products") {
-        return router.push(`/products?search=${trimmedQuery}`);
+  const mobileNavLinks = React.useMemo(
+    () => [
+      { href: "/", label: "Home", icon: Home },
+      { href: "/products", label: "Shop", icon: ShoppingBag },
+      { href: "/about", label: "About", icon: ShoppingBag },
+    ],
+    [],
+  );
+
+  const handleSearch = React.useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const form = new FormData(e.currentTarget);
+      const query = (form.get("query") as string | null)?.trim() ?? "";
+
+      if (!query) return;
+
+      if (!isProductsPage) {
+        router.push(`/products?search=${encodeURIComponent(query)}`);
+        return;
       }
-      return router.push(
+
+      router.push(
         setSearchParams({
           searchParams: searchParams.toString(),
-          params: { search: trimmedQuery },
+          params: { search: query },
         }),
       );
-    }
-  };
-  const getCategoryHref = (category: string) => {
-    const baseParams = pathname === "/products" ? searchParams.toString() : "";
-    console.log(baseParams, "baseParams");
-    console.log(category, "category");
-    return pathname !== "/products"
-      ? setSearchParams({
-          path: "/products",
-          searchParams: baseParams,
-          params: { category },
-          removeParams: ["page"],
-        })
-      : setSearchParams({
-          searchParams: baseParams,
-          params: { category },
-          removeParams: ["page"],
-        });
-  };
+    },
+    [isProductsPage, router, searchParams],
+  );
+
+  const getCategoryHref = React.useCallback(
+    (category: string) => {
+      const baseParams = isProductsPage ? searchParams.toString() : "";
+
+      return isProductsPage
+        ? setSearchParams({
+            searchParams: baseParams,
+            params: { category },
+            removeParams: ["page"],
+          })
+        : setSearchParams({
+            path: "/products",
+            searchParams: baseParams,
+            params: { category },
+            removeParams: ["page"],
+          });
+    },
+    [isProductsPage, searchParams],
+  );
   return (
     <>
       <header className="border-b border-b-muted sticky top-0 z-40 bg-background">
@@ -267,7 +294,7 @@ export default function Component() {
           <div className="container mx-auto px-4 flex items-center justify-between gap-6">
             <div className="">
               {pathname === "/products" ? (
-                <></>
+                <div className="min-w-[214px] min-h-9"></div>
               ) : (
                 <>
                   <DropdownMenu
@@ -349,28 +376,20 @@ export default function Component() {
                 </>
               )}
             </div>
-            <div className="flex items-center  gap-4">
-              <Link
-                className="flex items-center gap-1 text-base font-semibold hover:underline cursor-pointer"
-                href="/"
-              >
-                <Home className="h-4 w-4" />
-                Home
-              </Link>
-              <Link
-                className="flex items-center gap-1 text-base font-semibold hover:underline cursor-pointer"
-                href="/products"
-              >
-                <ShoppingBag className="h-4 w-4" />
-                Shop
-              </Link>
-              {/* <Link
-                className="flex items-center gap-2 text-sm font-medium hover:underline"
-                href="/offers"
-              >
-                <Ticket className="h-4 w-4" />
-                Offers
-              </Link> */}
+            {/* nav links */}
+            <div className="flex items-center gap-4">
+              {mainNavLinks.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  className={cn(
+                    "flex items-center gap-1 text-base font-semibold hover:underline cursor-pointer",
+                    pathname === href && "text-primary underline",
+                  )}
+                  href={href}
+                >
+                  {label}
+                </Link>
+              ))}
             </div>
             <div className="flex items-center  gap-2 ">
               <a
@@ -399,26 +418,19 @@ export default function Component() {
             <Menu className="h-6 w-6" />
             <span className="text-xs font-medium">Menu</span>
           </button> */}
-          <Link
-            href="/"
-            className={cn(
-              "flex flex-col items-center gap-1",
-              pathname === "/" && "text-primary",
-            )}
-          >
-            <Home className="h-6 w-6" />
-            <span className="text-xs font-semibold">Home</span>
-          </Link>
-          <Link
-            href="/products"
-            className={cn(
-              "flex flex-col items-center gap-1",
-              pathname === "/products" && "text-primary",
-            )}
-          >
-            <ShoppingBag className="h-6 w-6" />
-            <span className="text-xs font-semibold">Shop</span>
-          </Link>
+          {mobileNavLinks.map(({ href, label, icon: Icon }) => (
+            <Link
+              key={href}
+              href={href}
+              className={cn(
+                "flex flex-col items-center gap-1",
+                pathname === href && "text-primary",
+              )}
+            >
+              <Icon className="h-6 w-6" />
+              <span className="text-xs font-semibold">{label}</span>
+            </Link>
+          ))}
           {/* <Link href="#" className="flex flex-col items-center gap-1 relative">
             <ShoppingCart className="h-6 w-6 text-muted-foreground" />
             <Badge className="absolute -right-1 top-0 h-5 w-5 rounded-full p-0">

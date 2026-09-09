@@ -1,19 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getProducts } from "@/services";
-import Products from "./components/products";
 import ProductPagination from "./components/pagination";
+import Products from "./components/products";
 // import { LayoutGrid, List } from "lucide-react";
 // import Image from "next/image";
 
 // import { Badge } from "@/components/ui/badge";
-import Categories from "./components/categories";
-import PriceFilter from "./components/price-filter";
 // import { Button } from "@/components/ui/button";
-import Sort from "./components/sort";
 import ClearFilters from "./components/clear-filters";
-import PriceFilterCopy from "./components/price-filter-copy";
-import { Divide } from "lucide-react";
 import LeftSideContent from "./components/left-side";
+import Sort from "./components/sort";
 
 export default async function ProductsPageContent({
   searchParams,
@@ -53,7 +49,7 @@ export default async function ProductsPageContent({
 
   return (
     <>
-      <div className="container mx-auto space-y-6 p-4">
+      <div className="container mx-auto space-y-6 px-4">
         <div className="flex flex-col gap-0 md:gap-4 space-y-4 md:space-y-0 md:flex-row md:space-x-4">
           {/* Sidebar */}
           <div className="w-full md:w-1/4 lg:w-1/5 md:space-y-6 ">
@@ -98,7 +94,9 @@ export default async function ProductsPageContent({
           {/* Main Content */}
           <div className="w-full md:w-3/4 space-y-2 lg:space-y-4">
             <div className="flex flex-col md:flex-row md:justify-between md:items-center">
-              <h1 className="text-lg md:text-base lg:text-xl font-semibold font-inter tracking-widest">All Products</h1>
+              <h1 className="text-lg md:text-base lg:text-xl font-semibold font-inter tracking-widest">
+                All Products
+              </h1>
               {/* Search and Filter Bar */}
               <div className="flex flex-col space-y-0 md:flex-row md:justify-between md:items-center">
                 <ClearFilters />

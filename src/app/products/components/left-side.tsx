@@ -32,7 +32,7 @@ const LeftSideContent = () => {
           <div className="fixed h-full top-0 left-0 right-0 bg-white rounded-t-lg p-4 max-h-[99vh] overflow-y-auto">
             {/* Close Button */}
             <button
-            //   onClick={() => setIsModalOpen(false)}
+              //   onClick={() => setIsModalOpen(false)}
               className="absolute top-4 right-4 p-1 hover:bg-primary/10 rounded transition"
             >
               <X className="h-6 w-6" />
