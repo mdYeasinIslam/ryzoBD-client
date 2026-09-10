@@ -13,7 +13,7 @@ const FOOTER_SECTIONS = [
   },
   {
     title: "Useful Links",
-    items: ["Aboutd", "Contact", "FAQ", "Terms & Conditions"],
+    items: ["About", "Contact", "FAQ", "Terms & Conditions"],
   },
   {
     title: "Help Center",
