@@ -56,6 +56,7 @@ export default async function ProductsPageContent({
         <div className="flex flex-col gap-0 md:gap-4 space-y-4 md:space-y-0 md:flex-row md:space-x-4">
           {/* Sidebar */}
           <div className="w-full md:w-1/4 lg:w-1/5 md:space-y-6 max-sm:mt-4 ">
+            <ClearFilters />
             <LeftSideContent categories={<Categories />} />
 
             {/* Best Sellers */}
@@ -103,7 +104,7 @@ export default async function ProductsPageContent({
               </h1>
               {/* Search and Filter Bar */}
               <div className="flex flex-col space-y-0 md:flex-row md:justify-between md:items-center">
-                <ClearFilters />
+                {/* <ClearFilters /> */}
                 <div className="flex items-center gap-2 lg:gap-4">
                   <span className="w-full text-sm md:text-end text-muted-foreground">
                     Showing{" "}

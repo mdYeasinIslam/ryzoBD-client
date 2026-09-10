@@ -42,7 +42,7 @@ const ClearFilters = () => {
             >
               <span className=" font-semibold">&#x2715;</span> Clear filters
             </Button>
-            {paramsMinPrice && (
+            {/* {paramsMinPrice && (
               <Button
                 onClick={() => removeParams("min_price")}
                 variant="secondary"
@@ -59,7 +59,7 @@ const ClearFilters = () => {
               >
                 <span className="font-semibold">&#x2715;</span> Max Price
               </Button>
-            )}
+            )} */}
           </>
         )}
       </div>
