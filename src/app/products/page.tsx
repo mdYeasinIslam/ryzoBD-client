@@ -32,7 +32,7 @@ export default async function ProductsPageContent({
     category: params.category,
     page: params.page,
     sort: params.sort,
-    limit: "9",
+    limit: "12",
     search: params.search,
   };
   if (params.min_price) query.salePrice = { gte: params.min_price };
