@@ -51,7 +51,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             className="relative w-full! h-full flex justify-center items-center"
           >
             <Image
-              src={featuredImage}   
+              src={featuredImage}
               alt={name}
               width={500}
               height={500}
@@ -129,7 +129,8 @@ const ProductCard = ({ product }: { product: Product }) => {
                 aria-label="Add to cart"
                 onClick={handleAddToCart}
               >
-                <ShoppingBasket className="h-5 w-5" />
+                {/* <Plus /> */}
+                <ShoppingBasket className="h-5 w-5" /> <span className="font-semibold font-inter">Add</span>
               </Button>
             )}
           </div>

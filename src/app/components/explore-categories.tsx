@@ -39,7 +39,7 @@ export default async function ExploreCategoriesSection() {
             }}
             className="w-full"
           >
-            <CarouselContent className="-ml-2 md:-ml-4">
+            <CarouselContent className="-ml-2 md:-ml-4 flex justify-center">
               {/* TODO: need to remove this hardcoded number */}
               {/* {Array(12)
                 .fill(...categories) */}
@@ -54,16 +54,16 @@ export default async function ExploreCategoriesSection() {
                       "flex flex-col items-center rounded-lg p-4 transition-colors bg-muted/50"
                     )}
                   >
-                    <div className="mb-3 aspect-square w-18">
+                    <div className="mb-3 aspect-square w-full">
                       <Image
                         src={category.image}
                         alt={category.name}
-                        width={50}
-                        height={50}
+                        width={500}
+                        height={500}
                         className="h-full w-full object-cover"
                       />
                     </div>
-                    <h3 className="text-base text-center font-medium">
+                    <h3 className="text-base text-center font-inter font-medium">
                       {category.name}
                     </h3>
                   </Link>

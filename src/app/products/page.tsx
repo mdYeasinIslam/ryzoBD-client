@@ -52,10 +52,10 @@ export default async function ProductsPageContent({
 
   return (
     <>
-      <div className="container mx-auto space-y-6 px-4">
+      <div className="container mx-auto space-y-6 px-4 pb-8 md:pb-12 lg:pb-16">
         <div className="flex flex-col gap-0 md:gap-4 space-y-4 md:space-y-0 md:flex-row md:space-x-4">
           {/* Sidebar */}
-          <div className="w-full md:w-1/4 lg:w-1/5 md:space-y-6 max-sm:mt-4 ">
+          <div className="w-full md:w-1/4 lg:w-1/5 md:space-y-2 max-sm:mt-4 ">
             <ClearFilters />
             <LeftSideContent categories={<Categories />} />
 
