@@ -3,7 +3,7 @@ import { cn, setSearchParams } from "@/lib/utils";
 import { Category } from "@/types";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const CategoriesList = (props: { categories: Category[] }) => {
   const { categories } = props;
@@ -12,6 +12,9 @@ const CategoriesList = (props: { categories: Category[] }) => {
   const [categoryName, setCategoryName] = useState<string | null>(
     categoryParam ?? "All",
   );
+  useEffect(() => {
+    setCategoryName(categoryParam ?? "All");
+  }, [categoryParam]);
   return (
     <div className="space-y-4">
       <h2 className="font-semibold text-sm font-inter tracking-widest">

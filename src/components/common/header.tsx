@@ -290,7 +290,7 @@ export default function Component() {
             </div>
           </div>
         </div>
-        <nav className="border-t border-t-muted py-2 hidden lg:block">
+        <nav className="border-t border-t-muted py-2 hidden lg:block bg-primary/30 mb-2">
           <div className="container mx-auto px-4 flex items-center justify-between gap-6">
             <div className="">
               {pathname === "/products" ? (
