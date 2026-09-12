@@ -6,6 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import {
   ChevronDown,
+  Boxes,
   Home,
   Lock,
   LogOut,
@@ -91,6 +92,7 @@ export default function Component() {
     () => [
       { href: "/", label: "Home" },
       { href: "/products", label: "Shop" },
+      { href: "/packages", label: "Packages" },
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" },
     ],
@@ -101,6 +103,7 @@ export default function Component() {
     () => [
       { href: "/", label: "Home", icon: Home },
       { href: "/products", label: "Shop", icon: ShoppingBag },
+      { href: "/packages", label: "Packages", icon: Boxes },
       { href: "/about", label: "About", icon: ShoppingBag },
     ],
     [],

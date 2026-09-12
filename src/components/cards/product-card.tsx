@@ -30,13 +30,16 @@ const ProductCard = ({ product }: { product: Product }) => {
     dispatch(
       addToCart({
         _id,
+        productType: "product",
         name,
         price: salePrice,
         featuredImage,
       }),
     );
   };
-  const cartProduct = products.find((product) => product._id === _id);
+  const cartProduct = products.find(
+    (product) => product._id === _id && product.productType === "product"
+  );
   return (
     <Card className="group h-full relative overflow-hidden rounded-xl border-primary shadow-none transition-all duration-300">
       <CardContent className="p-0 flex flex-col justify-between h-full">
@@ -105,7 +108,13 @@ const ProductCard = ({ product }: { product: Product }) => {
                   size="icon"
                   className="h-8 w-8"
                   onClick={() =>
-                    dispatch(updateCartQuantity({ _id, quantity: -1 }))
+                    dispatch(
+                      updateCartQuantity({
+                        _id,
+                        productType: "product",
+                        quantity: -1,
+                      })
+                    )
                   }
                 >
                   <Minus className="h-3 w-3" />
@@ -116,7 +125,13 @@ const ProductCard = ({ product }: { product: Product }) => {
                   size="icon"
                   className="h-8 w-8"
                   onClick={() =>
-                    dispatch(updateCartQuantity({ _id, quantity: 1 }))
+                    dispatch(
+                      updateCartQuantity({
+                        _id,
+                        productType: "product",
+                        quantity: 1,
+                      })
+                    )
                   }
                 >
                   <Plus className="h-3 w-3" />
