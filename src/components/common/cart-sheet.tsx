@@ -14,12 +14,14 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
+  CartProductType,
   removeFromCart,
   updateCartQuantity,
 } from "@/redux/features/cart/cart-slice";
 
 interface CartItem {
   _id: string;
+  productType: CartProductType;
   name: string;
   price: number;
   quantity: number;
@@ -33,8 +35,12 @@ export const CartProductCard = ({
   className = "",
 }: {
   item: CartItem;
-  updateQuantity: (id: string, change: number) => void;
-  removeItem: (id: string) => void;
+  updateQuantity: (
+    id: string,
+    productType: CartProductType,
+    change: number
+  ) => void;
+  removeItem: (id: string, productType: CartProductType) => void;
   className?: string;
 }) => {
   return (
@@ -56,7 +62,14 @@ export const CartProductCard = ({
       </div>
       <div className="w-full space-y-1">
         <div className="flex-1 space-y-1">
-          <h3 className="font-medium">{item?.name}</h3>
+          <div className="flex items-center gap-2">
+            <h3 className="font-medium">{item?.name}</h3>
+            {item.productType === "package" && (
+              <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                Package
+              </span>
+            )}
+          </div>
           <p className="text-sm text-muted-foreground">
             Item Price {item?.price?.toFixed(2)}৳
           </p>
@@ -71,7 +84,9 @@ export const CartProductCard = ({
               size="icon"
               className="h-8 w-8"
               type="button"
-              onClick={() => updateQuantity(item?._id, -1)}
+              onClick={() =>
+                updateQuantity(item?._id, item.productType, -1)
+              }
             >
               <Minus className="h-3 w-3" />
             </Button>
@@ -81,7 +96,7 @@ export const CartProductCard = ({
               size="icon"
               className="h-8 w-8"
               type="button"
-              onClick={() => updateQuantity(item?._id, 1)}
+              onClick={() => updateQuantity(item?._id, item.productType, 1)}
             >
               <Plus className="h-3 w-3" />
             </Button>
@@ -92,7 +107,7 @@ export const CartProductCard = ({
               size="icon"
               className="h-8 w-8 text-destructive"
               type="button"
-              onClick={() => removeItem(item?._id)}
+              onClick={() => removeItem(item?._id, item.productType)}
             >
               <Trash2 className="h-4 w-4" />
             </Button>
@@ -111,12 +126,16 @@ export default function CartSheet(props: {
   const products = useAppSelector((state) => state.cart.products);
   const dispatch = useAppDispatch();
 
-  const updateQuantity = (id: string, change: number) => {
-    dispatch(updateCartQuantity({ _id: id, quantity: change }));
+  const updateQuantity = (
+    id: string,
+    productType: CartProductType,
+    change: number
+  ) => {
+    dispatch(updateCartQuantity({ _id: id, productType, quantity: change }));
   };
 
-  const removeItem = (id: string) => {
-    dispatch(removeFromCart(id));
+  const removeItem = (id: string, productType: CartProductType) => {
+    dispatch(removeFromCart({ _id: id, productType }));
   };
 
   const total = products.reduce(
@@ -146,7 +165,7 @@ export default function CartSheet(props: {
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {products.map((item) => (
             <CartProductCard
-              key={item?._id}
+              key={`${item.productType}:${item?._id}`}
               item={item}
               updateQuantity={updateQuantity}
               removeItem={removeItem}

@@ -224,7 +224,27 @@ export default function InvoicePage() {
                         className="rounded-md"
                       />
                     </TableCell>
-                    <TableCell>{product.productName}</TableCell>
+                    <TableCell>
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <span>{product.productName}</span>
+                          {product.productType === "package" && (
+                            <Badge variant="secondary">Package</Badge>
+                          )}
+                        </div>
+                        {product.productType === "package" &&
+                          product.packageProducts?.length > 0 && (
+                            <ul className="space-y-1 text-xs text-muted-foreground">
+                              {product.packageProducts.map((item: any) => (
+                                <li key={item.productId}>
+                                  {item.productName}: {item.quantityPerPackage} per
+                                  package ({item.totalQuantity} total)
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                      </div>
+                    </TableCell>
                     <TableCell className="text-center">
                       {product.quantity}
                     </TableCell>
