@@ -1,8 +1,11 @@
 import { getCart } from "@/lib/utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export type CartProductType = "product" | "package";
+
 type Product = {
   _id: string;
+  productType: CartProductType;
   name: string;
   price: number;
   featuredImage: string;
@@ -27,7 +30,9 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action: PayloadAction<Product>) => {
       const existingProductIndex = state.products.findIndex(
-        (product) => product._id === action.payload._id
+        (product) =>
+          product._id === action.payload._id &&
+          product.productType === action.payload.productType
       );
       if (existingProductIndex !== -1) {
         state.products[existingProductIndex].quantity +=
@@ -42,9 +47,14 @@ const cartSlice = createSlice({
         localStorage.setItem("cart", JSON.stringify(state.products));
       }
     },
-    removeFromCart: (state, action: PayloadAction<string>) => {
+    removeFromCart: (
+      state,
+      action: PayloadAction<{ _id: string; productType: CartProductType }>
+    ) => {
       state.products = state.products.filter(
-        (product) => product._id !== action.payload
+        (product) =>
+          product._id !== action.payload._id ||
+          product.productType !== action.payload.productType
       );
       if (typeof window !== "undefined") {
         localStorage.setItem("cart", JSON.stringify(state.products));
@@ -52,10 +62,16 @@ const cartSlice = createSlice({
     },
     updateCartQuantity: (
       state,
-      action: PayloadAction<{ _id: string; quantity: number }>
+      action: PayloadAction<{
+        _id: string;
+        productType: CartProductType;
+        quantity: number;
+      }>
     ) => {
       const existingProductIndex = state.products.findIndex(
-        (product) => product._id === action.payload._id
+        (product) =>
+          product._id === action.payload._id &&
+          product.productType === action.payload.productType
       );
       if (existingProductIndex !== -1) {
         const quantity = Math.max(
@@ -65,7 +81,9 @@ const cartSlice = createSlice({
         );
         if (quantity === 0) {
           state.products = state.products.filter(
-            (product) => product._id !== action.payload._id
+            (product) =>
+              product._id !== action.payload._id ||
+              product.productType !== action.payload.productType
           );
         } else {
           state.products[existingProductIndex].quantity = quantity;

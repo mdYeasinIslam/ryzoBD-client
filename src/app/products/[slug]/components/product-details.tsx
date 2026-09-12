@@ -64,6 +64,7 @@ const ProductDetails = (props: Props) => {
     dispatch(
       addToCart({
         _id: id,
+        productType: "product",
         name,
         price: salePrice,
         featuredImage,

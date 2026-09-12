@@ -9,7 +9,7 @@ import youtube from "../../../public/svg/youtube.svg";
 const FOOTER_SECTIONS = [
   {
     title: "Account",
-    items: ["Wishlist", "Cart", "Track Order", "Shipping Details"],
+    items: ["Wishlist", "Cart", "Track Order Order", "Shipping Details"],
   },
   {
     title: "Useful Links",

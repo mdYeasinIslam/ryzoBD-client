@@ -52,3 +52,23 @@ export const getProducts = async (query: { [key: string]: string } = {}) => {
   // console.log("dataFeaturedProducts", data);
   return { products, pagination };
 };
+
+export const getPackages = async (
+  query: { [key: string]: string } = {}
+) => {
+  const queryString = getQueryString(query);
+  const res = await fetch(config.API_BASE_URL + `/packages?${queryString}`);
+  const data = await res.json();
+  const { data: { packages = [] } = {}, pagination = {} } = data;
+  return { packages, pagination };
+};
+
+export const getPackageBySlug = async (slug: string) => {
+  const res = await fetch(config.API_BASE_URL + `/packages/${slug}`);
+
+  if (!res.ok) return null;
+
+  const data = await res.json();
+  const { data: { package: packageDocument = null } = {} } = data;
+  return packageDocument;
+};

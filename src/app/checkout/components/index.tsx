@@ -21,6 +21,7 @@ import { Address } from "@/app/(user-dashboard)/delivery-address/page";
 import { useCreateOrderMutation } from "@/redux/features/order/order-api";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
+  CartProductType,
   clearCart,
   removeFromCart,
   updateCartQuantity,
@@ -36,6 +37,7 @@ const orderSchema = z.object({
   cart: z.array(
     z.object({
       productId: z.string().min(1, "Product ID is required"),
+      productType: z.enum(["product", "package"]).default("product"),
       quantity: z.number().min(1, "Quantity must be greater than 0"),
     })
   ),
@@ -119,6 +121,7 @@ export default function Checkout() {
     if (products.length > 0) {
       const transformedProducts = products.map((item) => ({
         productId: item._id,
+        productType: item.productType,
         quantity: item.quantity,
       }));
       form.setValue("cart", transformedProducts);
@@ -127,19 +130,19 @@ export default function Checkout() {
 
   // console.log("form errors", form.formState.errors);
 
-  const updateQuantity = (id: string, change: number) => {
-    dispatch(updateCartQuantity({ _id: id, quantity: change }));
+  const updateQuantity = (
+    id: string,
+    productType: CartProductType,
+    change: number
+  ) => {
+    dispatch(updateCartQuantity({ _id: id, productType, quantity: change }));
   };
 
-  const removeItem = (id: string) => {
-    dispatch(removeFromCart(id));
+  const removeItem = (id: string, productType: CartProductType) => {
+    dispatch(removeFromCart({ _id: id, productType }));
   };
 
   const onSubmit = (values: CheckoutFormValues) => {
-    values.cart.push({
-      productId: "672e17429f547b0e1178af89",
-      quantity: 1,
-    });
     createOrder(values);
   };
 
@@ -319,7 +322,7 @@ export default function Checkout() {
                     <div>
                       {products.map((item) => (
                         <CartProductCard
-                          key={item._id}
+                          key={`${item.productType}:${item._id}`}
                           item={item}
                           updateQuantity={updateQuantity}
                           removeItem={removeItem}

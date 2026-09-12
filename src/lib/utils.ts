@@ -13,15 +13,22 @@ export function productOffPercent(price: number, salePrice: number) {
 }
 
 export const getCart = () => {
-  let cart;
-  if (typeof window !== "undefined") {
-    cart = localStorage.getItem("cart");
-  }
-  const parsedCart = cart ? JSON.parse(cart) : [];
-  if (!Array.isArray(parsedCart)) {
+  try {
+    const cart =
+      typeof window !== "undefined" ? localStorage.getItem("cart") : null;
+    const parsedCart = cart ? JSON.parse(cart) : [];
+
+    if (!Array.isArray(parsedCart)) {
+      return [];
+    }
+
+    return parsedCart.map((item) => ({
+      ...item,
+      productType: item.productType === "package" ? "package" : "product",
+    }));
+  } catch {
     return [];
   }
-  return parsedCart;
 };
 
 export const getQueryString = (query: { [key: string]: any } = {}) => {
