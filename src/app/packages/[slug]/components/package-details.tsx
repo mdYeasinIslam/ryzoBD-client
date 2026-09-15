@@ -62,7 +62,7 @@ export default function PackageDetails({
 
       <Badge variant="secondary">{packageData.sellUnit}</Badge>
 
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
         <div className="flex items-center gap-2 rounded-lg bg-gray-50 p-1">
           <Button
             type="button"
@@ -84,7 +84,7 @@ export default function PackageDetails({
             <Plus className="h-4 w-4" />
           </Button>
         </div>
-        <Button className="h-11 flex-1" onClick={addPackage}>
+        <Button className="w-full h-11 flex-1 font-semibold" onClick={addPackage}>
           <ShoppingBasket className="h-5 w-5" /> Add Package To Cart
         </Button>
       </div>

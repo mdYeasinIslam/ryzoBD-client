@@ -155,7 +155,7 @@ export default function LoginForm({
               </div>
               <Button
                 type="submit"
-                className="w-full h-11 bg-primary hover:bg-primary/90 text-white transition-colors"
+                className="w-full h-11 bg-primary font-semibold hover:bg-primary/90 text-white transition-colors"
                 disabled={isLoading}
                 isLoading={isLoading}
               >
@@ -168,7 +168,7 @@ export default function LoginForm({
               <span className="w-full border-t border-primary/20" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-4 text-muted-foreground">
+              <span className="bg-white px-4 text-foreground">
                 Or continue with
               </span>
             </div>
@@ -176,7 +176,7 @@ export default function LoginForm({
           <div className="flex justify-center">
             <Button
               variant="outline"
-              className="w-1/2 h-11 border-primary/20 hover:bg-primary/10 transition-colors hover:border-lime-600"
+              className="w-full h-11 border-primary/20 font-semibold hover:bg-primary/10 transition-colors hover:border-lime-600"
               onClick={handleGoogleLogin}
             >
               <Icons.google className="mr-2 h-4 w-4 text-lime-700" />
