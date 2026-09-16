@@ -1,4 +1,7 @@
+'use client';
 import { siteInfo } from "@/config/site-info";
+import { toast } from "@/hooks/use-toast";
+import { TelegramService } from "@/services/telegram.services";
 import {
   Clock3,
   Facebook,
@@ -9,8 +12,79 @@ import {
   Phone,
   Send,
 } from "lucide-react";
+import { useRef, useState } from "react";
 
 const ContactPage = () => {
+  const submitting = useRef(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState<{
+    status: "success" | "error";
+    message: string;
+  } | null>(null);
+
+  const handleFinishFn = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (submitting.current) return;
+
+    const form = event.currentTarget;
+    const values = new FormData(form);
+    const read = (field: string) => String(values.get(field) ?? "").trim();
+    const name = read("name");
+    const phone = read("phone");
+    const email = read("email");
+    const subject = read("subject");
+    const orderId = read("orderId");
+    const message = read("message");
+
+    if (!name || !phone || !email || !subject || !message) {
+      setFeedback({ status: "error", message: "Please complete all required fields. Only Order ID is optional." });
+      return;
+    }
+
+    // Telegram parses HTML, so customer text must stay literal.
+    const escapeHtml = (value: string) => value
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+    const subjectLabel = (form.elements.namedItem("subject") as HTMLSelectElement)
+      .selectedOptions[0]?.textContent || subject;
+    const msg = [
+      "<b>🆘 New Support Request</b>",
+      "──────────────────",
+      `<b>Name</b>: ${escapeHtml(name)}`,
+      `<b>Phone</b>: ${escapeHtml(phone)}`,
+      `<b>Email</b>: ${escapeHtml(email)}`,
+      `<b>Subject</b>: ${escapeHtml(subjectLabel)}`,
+      `<b>Order ID</b>: ${escapeHtml(orderId || "Not provided")}`,
+      "",
+      "<b>Message</b>",
+      escapeHtml(message),
+    ].join("\n");
+
+    submitting.current = true;
+    setIsSubmitting(true);
+    setFeedback(null);
+    try {
+      const result = await TelegramService.sentMsg(msg);
+      if (!result?.ok) throw new Error("Message was not delivered");
+      form.reset();
+      setFeedback({ status: "success", message: "Your message has been sent. Our team will get back to you soon." });
+      toast({
+        title: "Message sent successfully",
+        description: "Our team will get back to you soon.",
+      });
+    } catch {
+      setFeedback({ status: "error", message: "Could not send your message. Your details have been kept—please try again." });
+      toast({
+        title: "Could not send your message",
+        description: "Your details have been kept. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      submitting.current = false;
+      setIsSubmitting(false);
+    }
+  };
   return (
     <main className="bg-background text-foreground">
       {/* =========================================
@@ -181,7 +255,8 @@ const ContactPage = () => {
               </p>
             </div>
 
-            <form className="space-y-5">
+            <form onSubmit={handleFinishFn} aria-busy={isSubmitting}>
+              <fieldset disabled={isSubmitting} className="space-y-5">
               {/* Name */}
               <div>
                 <label
@@ -194,6 +269,8 @@ const ContactPage = () => {
                 <input
                   id="name"
                   name="name"
+                  maxLength={100}
+                  required
                   type="text"
                   placeholder="Enter your full name"
                   className="h-12 w-full rounded-lg border border-input bg-background px-4 text-sm outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-ring/10"
@@ -213,6 +290,8 @@ const ContactPage = () => {
                   <input
                     id="phone"
                     name="phone"
+                  maxLength={30}
+                  required
                     type="tel"
                     placeholder="01XXXXXXXXX"
                     className="h-12 w-full rounded-lg border border-input bg-background px-4 text-sm outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-ring/10"
@@ -230,6 +309,8 @@ const ContactPage = () => {
                   <input
                     id="email"
                     name="email"
+                  maxLength={254}
+                  required
                     type="email"
                     placeholder="you@example.com"
                     className="h-12 w-full rounded-lg border border-input bg-background px-4 text-sm outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-ring/10"
@@ -249,6 +330,7 @@ const ContactPage = () => {
                 <select
                   id="subject"
                   name="subject"
+                  required
                   defaultValue=""
                   className="h-12 w-full rounded-lg border border-input bg-background px-4 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-ring/10"
                 >
@@ -279,6 +361,7 @@ const ContactPage = () => {
                 <input
                   id="orderId"
                   name="orderId"
+                  maxLength={100}
                   type="text"
                   placeholder="Example: RYZ-12345"
                   className="h-12 w-full rounded-lg border border-input bg-background px-4 text-sm outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-ring/10"
@@ -297,6 +380,8 @@ const ContactPage = () => {
                 <textarea
                   id="message"
                   name="message"
+                  maxLength={2500}
+                  required
                   rows={6}
                   placeholder="Tell us how we can help..."
                   className="w-full resize-none rounded-lg border border-input bg-background px-4 py-3 text-sm outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-ring/10"
@@ -306,9 +391,10 @@ const ContactPage = () => {
               {/* Button */}
               <button
                 type="submit"
-                className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
+                disabled={isSubmitting}
+                className="flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 text-sm font-semibold text-primary-foreground transition hover:opacity-90 disabled:cursor-wait disabled:opacity-60"
               >
-                Send Message
+                {isSubmitting ? "Sending..." : "Send Message"}
                 <Send className="h-4 w-4" />
               </button>
 
@@ -316,6 +402,15 @@ const ContactPage = () => {
                 By sending this form, you allow RyzoBD to contact you regarding
                 your inquiry.
               </p>
+              </fieldset>
+              {feedback && (
+                <p
+                  role={feedback.status === "error" ? "alert" : "status"}
+                  className={`mt-4 text-sm ${feedback.status === "error" ? "text-destructive" : "text-primary"}`}
+                >
+                  {feedback.message}
+                </p>
+              )}
             </form>
           </div>
         </div>
