@@ -7,12 +7,10 @@ import Products from "./components/products";
 
 // import { Badge } from "@/components/ui/badge";
 // import { Button } from "@/components/ui/button";
-import ClearFilters from "./components/clear-filters";
-import Sort from "./components/sort";
-import LeftSideContent from "./components/left-side";
-import PriceFilterCopy from "./components/price-filter-copy";
-import { Divide } from "lucide-react";
 import Categories from "./components/categories";
+import ClearFilters from "./components/clear-filters";
+import LeftSideContent from "./components/left-side";
+import Sort from "./components/sort";
 
 export default async function ProductsPageContent({
   searchParams,

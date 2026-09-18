@@ -21,6 +21,8 @@ import {
   // Tag,
   // Ticket,
   User,
+  CopyPlus,
+  Package,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -52,7 +54,20 @@ import { useGetCategoriesQuery } from "@/redux/features/category/category-api";
 import { cn, setSearchParams } from "@/lib/utils";
 import { siteInfo } from "@/config/site-info";
 // import MobileSidebarSheet from "./mobile-sidebar-sheet";
-
+const accountsNavItems = [
+  { icon: User, label: "Profile", href: "/profile" },
+  {
+    icon: Package,
+    label: "My-packages",
+    href: "/my-packages",
+  },
+  { icon: ShoppingBag, label: "Orders", href: "/orders" },
+  {
+    icon: MapPin,
+    label: "Delivery Address",
+    href: "/delivery-address",
+  },
+];
 export default function Component() {
   const [isOpenCartSheet, setIsOpenCartSheet] = React.useState(false);
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = React.useState(false);
@@ -93,6 +108,7 @@ export default function Component() {
       { href: "/", label: "Home" },
       { href: "/products", label: "Shop" },
       { href: "/packages", label: "Packages" },
+      { href: "/packages/create", label: "Create Packages" },
       { href: "/about", label: "About" },
       { href: "/contact", label: "Contact" },
     ],
@@ -104,7 +120,8 @@ export default function Component() {
       { href: "/", label: "Home", icon: Home },
       { href: "/products", label: "Shop", icon: ShoppingBag },
       { href: "/packages", label: "Packages", icon: Boxes },
-      { href: "/about", label: "About", icon: ShoppingBag },
+      { href: "/packages/crate", label: "Create Packages", icon: CopyPlus },
+      // { href: "/about", label: "About", icon: ShoppingBag },
     ],
     [],
   );
@@ -216,7 +233,7 @@ export default function Component() {
               {session ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger className="focus-visible:outline-none">
-                    <button className="relative w-6 h-6 rounded-full overflow-hidden shrink-0 ring-2 ring-primary/20 focus-visible:rounded-full">
+                    <button className="relative h-6 w-6 shrink-0 overflow-hidden rounded-full ring-2 ring-primary/20 focus-visible:rounded-full">
                       <Image
                         src={session.user?.avatar || siteInfo.defaultUserAvatar}
                         alt="avatar"
@@ -225,10 +242,10 @@ export default function Component() {
                       />
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="p-0 border absolute -right-4 top-2 min-w-60">
+                  <DropdownMenuContent className="absolute -right-4 top-2 min-w-60 border p-0">
                     <DropdownMenuLabel>
-                      <div className="flex items-center gap-3 bg-muted p-3 py-2 rounded-lg">
-                        <button className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 shadow ring-2 ring-primary/20 focus-visible:rounded-full">
+                      <div className="flex items-center gap-3 rounded-lg bg-muted p-3 py-2">
+                        <button className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full shadow ring-2 ring-primary/20 focus-visible:rounded-full">
                           <Image
                             src={
                               session.user?.avatar || siteInfo.defaultUserAvatar
@@ -239,38 +256,39 @@ export default function Component() {
                           />
                         </button>
                         <div className="space-y-0.5">
-                          <h3 className="font-medium text-base">
+                          <h3 className="text-base font-medium">
                             {session.user?.name}
                           </h3>
-                          <h4 className="max-w-40 font-normal text-[12px] break-words text-muted-foreground">
+                          <h4 className="max-w-40 break-words text-[12px] font-normal text-muted-foreground">
                             {session.user?.email}
                           </h4>
                         </div>
                       </div>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator className="bg-muted dark:bg-muted-foreground" />
-                    <DropdownMenuItem
-                      asChild
-                      className="px-2 ps-4 py-3 cursor-pointer gap-2 hover:text-primary focus:text-primary focus:bg-secondary rounded-md transition-colors font-semibold"
-                    >
-                      <Link href="/profile">
-                        <User className="h-5 w-5" /> Profile
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      asChild
-                      className="px-2 ps-4 py-3 cursor-pointer gap-2 hover:text-primary focus:text-primary focus:bg-secondary rounded-md transition-colors font-semibold"
-                    >
-                      <Link href="/orders">
-                        <ShoppingBag className="h-5 w-5" /> Orders
-                      </Link>
-                    </DropdownMenuItem>
+                    {[
+                      { href: "/profile", icon: User, label: "Profile" },
+                      {
+                        href: "/my-packages",
+                        icon: Package,
+                        label: "My-packages",
+                      },
+                      { href: "/orders", icon: ShoppingBag, label: "Orders" },
+                    ].map((item) => (
+                      <DropdownMenuItem
+                        key={item.href}
+                        asChild
+                        className="cursor-pointer gap-2 rounded-md px-2 ps-4 py-3 font-semibold transition-colors hover:text-primary focus:bg-secondary focus:text-primary"
+                      >
+                        <Link href={item.href}>
+                          <item.icon className="h-5 w-5" /> {item.label}
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
                     <DropdownMenuSeparator className="bg-muted dark:bg-muted-foreground" />
                     <DropdownMenuItem
-                      onClick={() =>
-                        signOut({ redirect: true, callbackUrl: "/" })
-                      }
-                      className="px-2 ps-4 py-3 cursor-pointer gap-2 hover:text-primary focus:text-primary focus:bg-secondary rounded-md transition-colors font-semibold"
+                      onClick={handleLogout}
+                      className="cursor-pointer gap-2 rounded-md px-2 ps-4 py-3 font-semibold transition-colors hover:text-primary focus:bg-secondary focus:text-primary"
                     >
                       <LogOut className="h-5 w-5" />
                       Log out
@@ -279,7 +297,7 @@ export default function Component() {
                 </DropdownMenu>
               ) : (
                 <Link href="/login">
-                  <button className="relative w-6 h-6 rounded-full overflow-hidden shrink-0 ring-2 ring-primary/20 focus-visible:rounded-full flex items-center justify-center">
+                  <button className="relative flex h-6 w-6 shrink-0 items-center justify-center overflow-hidden rounded-full ring-2 ring-primary/20 focus-visible:rounded-full">
                     <Image
                       src={siteInfo.defaultUserAvatar}
                       alt="avatar"
@@ -412,7 +430,7 @@ export default function Component() {
 
       {/* Mobile Bottom Navigation */}
       <div className="fixed z-10 bottom-0 left-0 right-0 border-t bg-background lg:hidden">
-        <nav className="container mx-auto flex items-center justify-between px-4 py-2">
+        <nav className="container mx-auto flex items-center justify-between px-2 py-2">
           {/* TODO: Mobile menu option will be added later */}
           {/* <button
             onClick={() => setIsOpenMobileSidebarSheet((prev) => !prev)}
@@ -426,12 +444,12 @@ export default function Component() {
               key={href}
               href={href}
               className={cn(
-                "flex flex-col items-center gap-1",
+                "flex flex-col items-center gap- w-fit  text-center",
                 pathname === href && "text-primary",
               )}
             >
               <Icon className="h-6 w-6" />
-              <span className="text-xs font-semibold">{label}</span>
+              <span className="text-xs font-semibold px-0.5">{label}</span>
             </Link>
           ))}
           {/* <Link href="#" className="flex flex-col items-center gap-1 relative">
@@ -476,39 +494,20 @@ export default function Component() {
                   </DrawerDescription>
                 </DrawerHeader>
                 <div className="grid gap-4 p-4">
-                  <Button
-                    variant="ghost"
-                    className="flex items-center justify-start gap-2"
-                    onClick={() => {
-                      setIsDrawerOpen(false);
-                      router.push("/profile");
-                    }}
-                  >
-                    <User className="h-5 w-5" />
-                    Profile
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="flex items-center justify-start gap-2"
-                    onClick={() => {
-                      setIsDrawerOpen(false);
-                      router.push("/orders");
-                    }}
-                  >
-                    <ShoppingBag className="h-5 w-5" />
-                    Orders
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="flex items-center justify-start gap-2"
-                    onClick={() => {
-                      setIsDrawerOpen(false);
-                      router.push("/delivery-address");
-                    }}
-                  >
-                    <MapPin className="h-5 w-5" />
-                    Delivery Address
-                  </Button>
+                  {accountsNavItems?.map((item) => (
+                    <Button
+                      key={item.href}
+                      variant="ghost"
+                      className="flex items-center justify-start gap-2"
+                      onClick={() => {
+                        setIsDrawerOpen(false);
+                        router.push(item.href);
+                      }}
+                    >
+                      <item.icon className="h-5 w-5" />
+                      {item.label}
+                    </Button>
+                  ))}
                   {session.user?.authProvider ===
                     AUTH_PROVIDERS["email-password"] && (
                     <Button
@@ -523,13 +522,6 @@ export default function Component() {
                       Change Password
                     </Button>
                   )}
-                  {/* <Button
-                    variant="ghost"
-                    className="flex items-center justify-start gap-2"
-                  >
-                    <Settings className="h-5 w-5" />
-                    Settings
-                  </Button> */}
                   <Button
                     variant="ghost"
                     className="flex items-center justify-start gap-2"

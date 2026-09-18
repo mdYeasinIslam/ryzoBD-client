@@ -1,5 +1,7 @@
 "use client";
-import { Divide, SlidersHorizontal, X } from "lucide-react";
+import { Divide, PackagePlus, SlidersHorizontal, X } from "lucide-react";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 import PriceFilterCopy from "../price-filter-copy";
 import { ReactNode, useState } from "react";
 
@@ -8,16 +10,29 @@ interface LeftSideContentProps {
 }
 const LeftSideContent = ({ categories }: LeftSideContentProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const createPackageLink = (
+    <Link
+      href="/packages/create"
+      onClick={() => setIsModalOpen(false)}
+      className={buttonVariants({ className: "w-full" })}
+    >
+      <PackagePlus className="h-4 w-4" aria-hidden="true" />
+      Create your own Package
+    </Link>
+  );
   return (
     <>
       {/* Mobile Filter Button */}
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="md:hidden flex items-center gap-2 px-3 py-1 border border-primary/20 rounded hover:bg-primary/5 transition"
-      >
-        <SlidersHorizontal className="h-4 w-4" />
-        <span>Filters</span>
-      </button>
+      <div className="md:hidden flex items-center justify-between gap-2">
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className=" flex items-center gap-2 px-3 py-1 border border-primary/20 rounded hover:bg-primary/5 transition"
+        >
+          <SlidersHorizontal className="h-4 w-4" />
+          <span>Filters</span>
+        </button>
+        {createPackageLink}
+      </div>
 
       {/* Desktop View */}
       <div className="hidden md:block space-y-6 border border-primary/20 rounded p-3">
@@ -27,6 +42,7 @@ const LeftSideContent = ({ categories }: LeftSideContentProps) => {
         {/* Categories */}
         {/* <Categories /> */}
         {categories}
+        {createPackageLink}
       </div>
 
       {/* Mobile Modal */}
@@ -49,6 +65,7 @@ const LeftSideContent = ({ categories }: LeftSideContentProps) => {
               {/* Categories */}
               {/* <Categories /> */}
               {categories}
+              {createPackageLink}
             </div>
           </div>
         </div>
