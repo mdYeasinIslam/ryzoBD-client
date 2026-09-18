@@ -1,29 +1,27 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { removeSearchParams } from "@/lib/utils";
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
 
 const ClearFilters = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const hasAnySearchParams = searchParams.size;
   //   const paramsCategory = searchParams.get("category");
-  const paramsMinPrice = searchParams.get("min_price");
-  const paramsMaxPrice = searchParams.get("max_price");
+  // const paramsMinPrice = searchParams.get("min_price");
+  // const paramsMaxPrice = searchParams.get("max_price");
   const search = searchParams.get("search");
 
   const clearFilters = () => {
     router.push("/products");
   };
-  const removeParams = (...keys: string[]) => {
-    router.push(
-      removeSearchParams({
-        searchParams: searchParams.toString(),
-        keys,
-      })
-    );
-  };
+  // const removeParams = (...keys: string[]) => {
+  //   router.push(
+  //     removeSearchParams({
+  //       searchParams: searchParams.toString(),
+  //       keys,
+  //     })
+  //   );
+  // };
   return (
     <div className="space-y-3">
       {search && (

@@ -1,3 +1,4 @@
+import { login, logout } from "../auth/auth-slice";
 import { getCart } from "@/lib/utils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -10,6 +11,9 @@ type Product = {
   price: number;
   featuredImage: string;
   quantity?: number;
+  packageQuote?: string;
+  ownerId?: string;
+  contents?: string[];
 };
 
 type CartProduct = Product & {
@@ -17,18 +21,37 @@ type CartProduct = Product & {
 };
 
 type State = {
+  hydrated: boolean;
   products: CartProduct[];
 };
 
 const initialState: State = {
-  products: getCart(),
+  products: [],
+  hydrated: false,
 };
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
+  extraReducers: builder => {
+    builder.addCase(login, (state, action) => {
+      if (!state.hydrated) { state.products = getCart(); state.hydrated = true; }
+      state.products = state.products.filter(item => !item.ownerId || item.ownerId === action.payload.user._id);
+      if (typeof window !== "undefined") localStorage.setItem("cart", JSON.stringify(state.products));
+    });
+    builder.addCase(logout, state => {
+      state.products = state.products.filter(item => !item.ownerId);
+      if (typeof window !== "undefined") localStorage.setItem("cart", JSON.stringify(state.products));
+    });
+  },
   reducers: {
+    refreshCartPackage: (state, action: PayloadAction<Product>) => {
+      const item = state.products.find(p => p._id === action.payload._id && p.productType === "package");
+      if (item) Object.assign(item, { ...action.payload, quantity: item.quantity });
+      if (typeof window !== "undefined") localStorage.setItem("cart", JSON.stringify(state.products));
+    },
     addToCart: (state, action: PayloadAction<Product>) => {
+      if (!state.hydrated) { state.products = getCart(); state.hydrated = true; }
       const existingProductIndex = state.products.findIndex(
         (product) =>
           product._id === action.payload._id &&
@@ -103,5 +126,5 @@ const cartSlice = createSlice({
 });
 
 export default cartSlice.reducer;
-export const { addToCart, removeFromCart, updateCartQuantity, clearCart } =
+export const { refreshCartPackage, addToCart, removeFromCart, updateCartQuantity, clearCart } =
   cartSlice.actions;

@@ -31,6 +31,7 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { TooltipMessage } from "@/components/tooltips";
+import { PackageCartReview, usePackageCartReview } from "@/components/packages/cart-review";
 import { SHIPPING_AREAS } from "@/constants";
 
 const orderSchema = z.object({
@@ -38,6 +39,7 @@ const orderSchema = z.object({
     z.object({
       productId: z.string().min(1, "Product ID is required"),
       productType: z.enum(["product", "package"]).default("product"),
+      packageQuote: z.string().optional(),
       quantity: z.number().min(1, "Quantity must be greater than 0"),
     })
   ),
@@ -95,6 +97,7 @@ export default function Checkout() {
   // const [createStripeCheckoutSession, createStripeCheckoutSessionState] =
   //   useCreateStripeCheckoutSessionMutation();
   const products = useAppSelector((state) => state.cart.products);
+  const packageReview = usePackageCartReview();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
@@ -123,6 +126,7 @@ export default function Checkout() {
         productId: item._id,
         productType: item.productType,
         quantity: item.quantity,
+        packageQuote: item.packageQuote,
       }));
       form.setValue("cart", transformedProducts);
     }
@@ -143,6 +147,7 @@ export default function Checkout() {
   };
 
   const onSubmit = (values: CheckoutFormValues) => {
+    if (!packageReview.ready) { toast({ title: "Please review your custom packages first.", variant: "destructive" }); return; }
     createOrder(values);
   };
 
@@ -166,6 +171,7 @@ export default function Checkout() {
         `/orders/${createOrderState?.data?.data?.order?._id}` || "/orders"
       );
     } else if (createOrderState.isError) {
+      if (packageReview.items.length) packageReview.result.refetch();
       toast({
         title:
           (createOrderState.error as any)?.data?.message ||
@@ -317,6 +323,7 @@ export default function Checkout() {
                   <CardTitle>Order Summary</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
+                  <PackageCartReview review={packageReview} />
                   {/* Products */}
                   <ScrollArea className="max-h-[220px] overflow-y-auto scrollbar pr-4">
                     <div>
@@ -370,7 +377,7 @@ export default function Checkout() {
                     className="w-full bg-primary hover:bg-primary/90 text-white"
                     size="lg"
                     type="submit"
-                    disabled={products.length === 0}
+                    disabled={products.length === 0 || !packageReview.ready || createOrderState.isLoading}
                     isLoading={createOrderState.isLoading}
                   >
                     Confirm Order

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  // Package,
+  Package,
   // Settings,
   Lock,
   LogOut,
@@ -23,6 +23,7 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
+  { title: "My Packages", href: "/my-packages", icon: Package },
   {
     title: "My Orders",
     href: "/orders",

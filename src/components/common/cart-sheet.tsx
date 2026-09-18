@@ -10,6 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { PackageCartReview, usePackageCartReview } from "@/components/packages/cart-review";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -26,6 +27,7 @@ interface CartItem {
   price: number;
   quantity: number;
   featuredImage: string;
+  contents?: string[];
 }
 
 export const CartProductCard = ({
@@ -70,6 +72,7 @@ export const CartProductCard = ({
               </span>
             )}
           </div>
+          {item.contents && <ul className="text-xs text-muted-foreground">{item.contents.map((content, index) => <li key={index}>{content}</li>)}</ul>}
           <p className="text-sm text-muted-foreground">
             Item Price {item?.price?.toFixed(2)}৳
           </p>
@@ -123,6 +126,7 @@ export default function CartSheet(props: {
   setIsOpen: (isOpen: boolean) => void;
 }) {
   const { isOpen, setIsOpen } = props;
+  const packageReview = usePackageCartReview(isOpen);
   const products = useAppSelector((state) => state.cart.products);
   const dispatch = useAppDispatch();
 
@@ -163,6 +167,7 @@ export default function CartSheet(props: {
           </div>
         </SheetHeader>
         <div className="flex-1 overflow-y-auto px-6 py-4">
+          {isOpen && <PackageCartReview review={packageReview} />}
           {products.map((item) => (
             <CartProductCard
               key={`${item.productType}:${item?._id}`}

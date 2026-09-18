@@ -6,6 +6,6 @@ export const apiSlice = createApi({
   refetchOnFocus: true,
   refetchOnReconnect: true,
   // keepUnusedDataFor: 0,
-  tagTypes: ["profile", "addresses", "orders", "categories"],
+  tagTypes: ["profile", "addresses", "orders", "categories", "my-packages"],
   endpoints: () => ({}),
 });
