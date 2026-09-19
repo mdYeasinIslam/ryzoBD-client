@@ -3,6 +3,7 @@ import Banner from "./components/banner";
 import ExploreCategoriesSection from "./components/explore-categories";
 import FeaturedProducts from "./components/feature-products";
 import PopularProducts from "./components/popular-products";
+import PackagesSection from "./components/packages";
 import OfferCardSectionPro from "./components/offer-cardPro";
 import FeatureSection from "@/components/common/FeatureSection";
 // import FeatureProductCard from "./components/product";
@@ -18,6 +19,7 @@ export default async function Home() {
       <OfferCardSectionPro />
       {/* <FeatureProductCard /> */}
       <PopularProducts />
+      <PackagesSection />
       <FeatureSection />
       <NewsletterSubscription />
     </>
